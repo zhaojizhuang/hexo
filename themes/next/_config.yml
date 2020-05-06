@@ -27,9 +27,9 @@ override: false
 # For example, you put your favicons into `hexo-site/source/images` directory.
 # Then need to rename & redefine they on any other names, otherwise icons from Next will rewrite your custom icons in Hexo.
 favicon:
-  small: /images/favicon-16x16-next.png
-  medium: /images/favicon-32x32-next.png
-  apple_touch_icon: /images/apple-touch-icon-next.png
+  small: favicon.ico
+  medium: favicon.ico
+  apple_touch_icon: favicon.ico
   safari_pinned_tab: /images/logo.svg
   #android_manifest: /images/manifest.json
   #ms_browserconfig: /images/browserconfig.xml
@@ -100,12 +100,12 @@ index_with_subtitle: false
 menu:
   # home: / || home
   home: /archives/ || home
-  about: /about/ || user
-  #tags: /tags/ || tags
-  #categories: /categories/ || th
   archives: /archives/ || archive
-  ebook: /source-code-reading-notes/ || book
-  rss: /atom.xml || rss
+  tags: /tags/ || tags
+  categories: /categories/ || th
+  #ebook: /source-code-reading-notes/ || book
+  about: /about/ || user
+  #rss: /atom.xml || rss
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
@@ -258,7 +258,7 @@ post_wordcount:
 
 # Declare license on posts
 post_copyright:
-  enable: false
+  enable: true
   license: CC BY-NC-SA 3.0
   license_url: https://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -286,7 +286,7 @@ custom_logo:
 # Available value:
 #    normal | night | night eighties | night blue | night bright
 # https://github.com/chriskempson/tomorrow-theme
-highlight_theme: normal
+highlight_theme: night
 
 
 # ---------------------------------------------------------------
@@ -382,12 +382,20 @@ changyan:
   appid:
   appkey:
 
+# https://github.com/gitalk/gitalk#install
+gitalk:
+  enable: true #默认的是false，没有打开
+  owner: zhaojizhuang
+  admin: zhaojizhuang
+  repo: blogtalk
+  clientID: 9ae2de7f8db1408d1504
+  clientSecret: d01059f84cfbd311a0614b07050456ed4ec8807a
 
 # Valine.
 # You can get your appid and appkey from https://leancloud.cn
 # more info please open https://valine.js.org
 valine:
-  enable: true
+  enable: false
   appid:  4rrWgTYNotH1jcsnIEprRQzE-gzGzoHsz
   appkey: AwqgkQSLtSvYJzrvEJzGQrRe
   notify: false # mail notifier , https://github.com/xCss/Valine/wiki
@@ -396,7 +404,7 @@ valine:
   avatar: mm # gravatar style
   guest_info: nick,mail,link # custom comment header
   pageSize: 10 # pagination size
-  valine: https://cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js  
+  valine: https://cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js
 
 # Support for youyan comments system.
 # You can get your uid from http://www.uyan.cc

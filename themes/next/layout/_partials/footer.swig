@@ -7,7 +7,6 @@
   </span>
   <span class="author" itemprop="copyrightHolder">{{ theme.footer.copyright || config.author }}</span>
 
-    <a href="http://www.beian.miit.gov.cn/">陕ICP备15001765号-1</a> 
 
   {% if theme.post_wordcount.totalcount %}
     <span class="post-meta-divider">|</span>
@@ -48,7 +47,7 @@
 #}</div>
 {% endif %}
 
-{% if theme.footer.beian.enable %} 
+{% if theme.footer.beian.enable %}
     {{ next_url('http://www.beian.miit.gov.cn', theme.footer.beian.icp ) }}
 {% endif %}
 
