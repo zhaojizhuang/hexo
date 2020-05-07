@@ -99,7 +99,7 @@ index_with_subtitle: false
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, question icon will be loaded.
 menu:
   # home: / || home
-  home: /archives/ || home
+  home: / || home
   archives: /archives/ || archive
   tags: /tags/ || tags
   categories: /categories/ || th
@@ -286,7 +286,7 @@ custom_logo:
 # Available value:
 #    normal | night | night eighties | night blue | night bright
 # https://github.com/chriskempson/tomorrow-theme
-highlight_theme: night
+highlight_theme: night eighties
 
 
 # ---------------------------------------------------------------
