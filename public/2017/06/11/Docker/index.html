@@ -89,15 +89,15 @@
 <meta property="og:site_name" content="赵吉壮">
 <meta property="og:description" content="重要链接！！！知乎上的深入浅出  1.Docker 介绍便于入题，首先用 Docker 的logo解释下： 那个大鲸鱼（或者是货轮）就是操作系统 把要交付的应用程序看成是各种货物，原本要将各种各样形状、尺寸不同的货物放到大鲸鱼上，你得为每件货物考虑怎么安放（就是应用程序配套的环境），还得考虑货物和货物是否能叠起来（应用程序依赖的环境是否会冲突）。 现在使用了集装箱（容器）把每件货物都放到集装箱里">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://raw.githubusercontent.com/zhaojizhuang/zhaojizhuang.github.io/master/_posts/images/what.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/zhaojizhuang/zhaojizhuang.github.io/master/_posts/images/docker_cs.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/zhaojizhuang/zhaojizhuang.github.io/master/_posts/images/docker_frame.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/zhaojizhuang/zhaojizhuang.github.io/master/_posts/images/dockeruse.png">
-<meta property="og:updated_time" content="2020-05-06T15:55:07.050Z">
+<meta property="og:image" content="https://chumper.cn/images/what.jpg">
+<meta property="og:image" content="https://chumper.cn/images/docker_cs.png">
+<meta property="og:image" content="https://chumper.cn/images/docker_frame.jpg">
+<meta property="og:image" content="https://chumper.cn/images/dockeruse.png">
+<meta property="og:updated_time" content="2020-05-07T15:36:34.532Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker 介绍及其应用">
 <meta name="twitter:description" content="重要链接！！！知乎上的深入浅出  1.Docker 介绍便于入题，首先用 Docker 的logo解释下： 那个大鲸鱼（或者是货轮）就是操作系统 把要交付的应用程序看成是各种货物，原本要将各种各样形状、尺寸不同的货物放到大鲸鱼上，你得为每件货物考虑怎么安放（就是应用程序配套的环境），还得考虑货物和货物是否能叠起来（应用程序依赖的环境是否会冲突）。 现在使用了集装箱（容器）把每件货物都放到集装箱里">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/zhaojizhuang/zhaojizhuang.github.io/master/_posts/images/what.jpg">
+<meta name="twitter:image" content="https://chumper.cn/images/what.jpg">
 
 
 
@@ -396,21 +396,21 @@
         <blockquote>
 <p><a href="https://www.zhihu.com/question/22969309" target="_blank" rel="noopener">重要链接！！！知乎上的深入浅出</a></p>
 </blockquote>
-<h2 id="1-Docker-介绍"><a href="#1-Docker-介绍" class="headerlink" title="1.Docker 介绍"></a>1.Docker 介绍</h2><p><strong>便于入题，首先用 Docker 的logo解释下：</strong><br><img src="https://raw.githubusercontent.com/zhaojizhuang/zhaojizhuang.github.io/master/_posts/images/what.jpg" alt="Docker logo"></p>
+<h2 id="1-Docker-介绍"><a href="#1-Docker-介绍" class="headerlink" title="1.Docker 介绍"></a>1.Docker 介绍</h2><p><strong>便于入题，首先用 Docker 的logo解释下：</strong><br><img src="/images/what.jpg" alt="Docker logo"></p>
 <p>那个大鲸鱼（或者是货轮）就是操作系统</p>
 <p>把要交付的应用程序看成是各种货物，原本要将各种各样形状、尺寸不同的货物放到大鲸鱼上，你得为每件货物考虑怎么安放（就是应用程序配套的环境），还得考虑货物和货物是否能叠起来（应用程序依赖的环境是否会冲突）。</p>
 <p>现在使用了集装箱（容器）把每件货物都放到集装箱里，这样大鲸鱼可以用同样地方式安放、堆叠集装了，省事省力。<a href="https://www.zhihu.com/question/28300645/answer/50922662" target="_blank" rel="noopener">参考知乎</a></p>
 <p><strong>步入正题：</strong></p>
 <p>Docker 是 PaaS 提供商 dotCloud 开源的一个基于 <a href="#lxc">LXC</a> 的高级容器引擎，源代码托管在 Github 上, 基于go语言并遵从Apache2.0协议开源。</p>
 <p>Docker可以轻松的为任何应用创建一个轻量级的、可移植的、自给自足的容器。开发者在笔记本上编译测试通过的容器可以批量地在生产环境中部署，包括VMs（虚拟机）、bare metal、OpenStack 集群和其他的基础应用平台。</p>
-<p><img src="https://raw.githubusercontent.com/zhaojizhuang/zhaojizhuang.github.io/master/_posts/images/docker_cs.png" alt="Docker的c/s架构"></p>
+<p><img src="/images/docker_cs.png" alt="Docker的c/s架构"></p>
 <p>如图所示，Docker 使用客户端-服务器 (C/S) 架构模式。</p>
 <ul>
 <li>Docker 客户端会与 Docker 守护进程进行通信。</li>
 <li>Docker 守护进程会处理复杂繁重的任务，例如建立、运行、发布你的 Docker 容器。</li>
 <li>Docker 客户端和守护进程 Daemon 可以运行在同一个系统上，当然你也可以使用 Docker 客户端去连接一个远程的 Docker 守护进程。Docker 客户端和守护进程之间通过 socket 或者 RESTful API 进行通信，就像下图。</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/zhaojizhuang/zhaojizhuang.github.io/master/_posts/images/docker_frame.jpg" alt="docker架构图"></p>
+<p><img src="/images/docker_frame.jpg" alt="docker架构图"></p>
 <h3 id="1-1-Docker-守护进程"><a href="#1-1-Docker-守护进程" class="headerlink" title="1.1 Docker 守护进程"></a>1.1 Docker 守护进程</h3><p>如上图所示，Docker 守护进程运行在一台主机上。用户并不直接和守护进程进行交互，而是通过 Docker 客户端间接和其通信。</p>
 <h3 id="1-2-Docker-客户端"><a href="#1-2-Docker-客户端" class="headerlink" title="1.2 Docker 客户端"></a>1.2 Docker 客户端</h3><p>Docker 客户端，实际上是 docker 的二进制程序，是主要的用户与 Docker 交互方式。它接收用户指令并且与背后的 Docker 守护进程通信，如此来回往复。</p>
 <h3 id="1-3-Docker-内部"><a href="#1-3-Docker-内部" class="headerlink" title="1.3 Docker 内部"></a>1.3 Docker 内部</h3><p>要理解 Docker 内部构建，需要理解以下三种部件：</p>
@@ -426,7 +426,7 @@
 <h2 id="2-Docker-8个的应用场景"><a href="#2-Docker-8个的应用场景" class="headerlink" title="2. Docker 8个的应用场景"></a>2. Docker 8个的应用场景</h2><blockquote>
 <p>本小节介绍了常用的8个Docker的真实使用场景，分别是简化配置、代码流水线管理、提高开发效率、隔离应用、整合服务器、调试能力、多租户环境、快速部署</p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/zhaojizhuang/zhaojizhuang.github.io/master/_posts/images/dockeruse.png" alt="Docker 的8个应用场景"></p>
+<p><img src="/images/dockeruse.png" alt="Docker 的8个应用场景"></p>
 <p>一些Docker的使用场景，它为你展示了如何借助Docker的优势，在低开销的情况下，打造一个一致性的环境。</p>
 <h3 id="1-简化配置"><a href="#1-简化配置" class="headerlink" title="1.简化配置"></a>1.简化配置</h3><p>这是Docker公司宣传的Docker的主要使用场景。虚拟机的最大好处是能在你的硬件设施上运行各种配置不一样的平台（软件、系统），Docker在降低额外开销的情况下提供了同样的功能。它能让你将运行环境和配置放在代码中然后部署，同一个Docker的配置可以在不同的环境中使用，这样就降低了硬件要求和应用环境之间耦合度。</p>
 <h3 id="2-代码流水线（Code-Pipeline）管理"><a href="#2-代码流水线（Code-Pipeline）管理" class="headerlink" title="2. 代码流水线（Code Pipeline）管理"></a>2. 代码流水线（Code Pipeline）管理</h3><p>前一个场景对于管理代码的流水线起到了很大的帮助。代码从开发者的机器到最终在生产环境上的部署，需要经过很多的中间环境。而每一个中间环境都有自己微小的差别，Docker给应用提供了一个从开发到上线均一致的环境，让代码的流水线变得简单不少。</p>
