@@ -104,13 +104,13 @@ func (b *bmap) setoverflow(t *maptype, ovf *bmap) {
 
 hmap中的buckets中的原色bucket就是bmap，即 buckets[0],bucket[1],... bucket[2^B-1]如下图
 
-![](https://raw.githubusercontent.com/zhaojizhuang/zhaojizhuang.github.io/master/_posts/images/hmap.png)
+![](/images/hmap.png)
 
 **bucket就是bmap**
 
 bmap 是存放 k-v 的地方，我们把视角拉近，仔细看 bmap 的内部组成。
 
-![](https://raw.githubusercontent.com/zhaojizhuang/zhaojizhuang.github.io/master/_posts/images/bmap.png)
+![](/images/bmap.png)
 
 key 经过哈希计算后得到哈希值，共 64 个 bit 位（64位机，32位机就不讨论了，现在主流都是64位机），计算它到底要落在哪个桶时，只会用到**最后 B 个 bit 位**。还记得前面提到过的 B 吗？如果 B = 5，那么桶的数量，也就是 buckets 数组的长度是 2^5 = 32
 

@@ -14,7 +14,7 @@ mathjax: true
 
 ## 1.Docker 介绍
 **便于入题，首先用 Docker 的logo解释下：**
-![Docker logo](https://raw.githubusercontent.com/zhaojizhuang/zhaojizhuang.github.io/master/_posts/images/what.jpg)
+![Docker logo](/images/what.jpg)
 
 那个大鲸鱼（或者是货轮）就是操作系统
 
@@ -28,7 +28,7 @@ Docker 是 PaaS 提供商 dotCloud 开源的一个基于 [LXC](#lxc) 的高级�
 
 Docker可以轻松的为任何应用创建一个轻量级的、可移植的、自给自足的容器。开发者在笔记本上编译测试通过的容器可以批量地在生产环境中部署，包括VMs（虚拟机）、bare metal、OpenStack 集群和其他的基础应用平台。
 
-![Docker的c/s架构](https://raw.githubusercontent.com/zhaojizhuang/zhaojizhuang.github.io/master/_posts/images/docker_cs.png)
+![Docker的c/s架构](/images/docker_cs.png)
 
 如图所示，Docker 使用客户端-服务器 (C/S) 架构模式。
 
@@ -36,7 +36,7 @@ Docker可以轻松的为任何应用创建一个轻量级的、可移植的、�
 - Docker 守护进程会处理复杂繁重的任务，例如建立、运行、发布你的 Docker 容器。
 - Docker 客户端和守护进程 Daemon 可以运行在同一个系统上，当然你也可以使用 Docker 客户端去连接一个远程的 Docker 守护进程。Docker 客户端和守护进程之间通过 socket 或者 RESTful API 进行通信，就像下图。
 
-![docker架构图](https://raw.githubusercontent.com/zhaojizhuang/zhaojizhuang.github.io/master/_posts/images/docker_frame.jpg)
+![docker架构图](/images/docker_frame.jpg)
 
 ### 1.1 Docker 守护进程
 
@@ -61,7 +61,7 @@ _**Docker 仓库**_ - Docker registeries
 ## 2. Docker 8个的应用场景
 > 本小节介绍了常用的8个Docker的真实使用场景，分别是简化配置、代码流水线管理、提高开发效率、隔离应用、整合服务器、调试能力、多租户环境、快速部署
 
-![Docker 的8个应用场景](https://raw.githubusercontent.com/zhaojizhuang/zhaojizhuang.github.io/master/_posts/images/dockeruse.png)
+![Docker 的8个应用场景](/images/dockeruse.png)
 
 一些Docker的使用场景，它为你展示了如何借助Docker的优势，在低开销的情况下，打造一个一致性的环境。
 

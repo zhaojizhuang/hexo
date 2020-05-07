@@ -89,17 +89,17 @@
 <meta property="og:site_name" content="赵吉壮">
 <meta property="og:description" content="Go深入分析go程序是如何运行的参考链接1 defer 源码分析参考链接 defer、return、返回值三者的执行逻辑应该是：return最先执行，return负责将结果写入返回值中；接着defer开始执行一些收尾工作；最后函数携带当前返回值退出 逃逸分析 堆栈分配参考链接 go build -gcflags &amp;#39;-m -l&amp;#39; xxx.go 就可以看到逃逸分析的过程和结果 go性能">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://raw.githubusercontent.com/zhaojizhuang/zhaojizhuang.github.io/master/_posts/images/hmap.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/zhaojizhuang/zhaojizhuang.github.io/master/_posts/images/bmap.png">
+<meta property="og:image" content="https://chumper.cn/images/hmap.png">
+<meta property="og:image" content="https://chumper.cn/images/bmap.png">
 <meta property="og:image" content="https://img.draveness.me/2020-01-19-15794253176199-golang-panic-and-defers.png">
 <meta property="og:image" content="https://pic4.zhimg.com/80/v2-0cccb4976f8f2c2f8107f2b3a5bc46b3_720w.jpg">
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-90632d0dc3ded7f91379b848ab53974c_720w.jpg">
 <meta property="og:image" content="https://pic4.zhimg.com/80/v2-40bd5825e27cf49b7fd9a59dfcbe4d6f_720w.jpg">
-<meta property="og:updated_time" content="2020-05-06T15:54:48.209Z">
+<meta property="og:updated_time" content="2020-05-07T15:32:45.803Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Go 深入分析">
 <meta name="twitter:description" content="Go深入分析go程序是如何运行的参考链接1 defer 源码分析参考链接 defer、return、返回值三者的执行逻辑应该是：return最先执行，return负责将结果写入返回值中；接着defer开始执行一些收尾工作；最后函数携带当前返回值退出 逃逸分析 堆栈分配参考链接 go build -gcflags &amp;#39;-m -l&amp;#39; xxx.go 就可以看到逃逸分析的过程和结果 go性能">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/zhaojizhuang/zhaojizhuang.github.io/master/_posts/images/hmap.png">
+<meta name="twitter:image" content="https://chumper.cn/images/hmap.png">
 
 
 
@@ -424,10 +424,10 @@
 <p>bmap不只tophash还有两个方法 overflow 和setoverflow</p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b *bmap)</span> <span class="title">overflow</span><span class="params">(t *maptype)</span> *<span class="title">bmap</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> *(**bmap)(add(unsafe.Pointer(b), <span class="keyword">uintptr</span>(t.bucketsize)-sys.PtrSize))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b *bmap)</span> <span class="title">setoverflow</span><span class="params">(t *maptype, ovf *bmap)</span></span> &#123;</span><br><span class="line">	*(**bmap)(add(unsafe.Pointer(b), <span class="keyword">uintptr</span>(t.bucketsize)-sys.PtrSize)) = ovf</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>hmap中的buckets中的原色bucket就是bmap，即 buckets[0],bucket[1],… bucket[2^B-1]如下图</p>
-<p><img src="https://raw.githubusercontent.com/zhaojizhuang/zhaojizhuang.github.io/master/_posts/images/hmap.png" alt=""></p>
+<p><img src="/images/hmap.png" alt=""></p>
 <p><strong>bucket就是bmap</strong></p>
 <p>bmap 是存放 k-v 的地方，我们把视角拉近，仔细看 bmap 的内部组成。</p>
-<p><img src="https://raw.githubusercontent.com/zhaojizhuang/zhaojizhuang.github.io/master/_posts/images/bmap.png" alt=""></p>
+<p><img src="/images/bmap.png" alt=""></p>
 <p>key 经过哈希计算后得到哈希值，共 64 个 bit 位（64位机，32位机就不讨论了，现在主流都是64位机），计算它到底要落在哪个桶时，只会用到<strong>最后 B 个 bit 位</strong>。还记得前面提到过的 B 吗？如果 B = 5，那么桶的数量，也就是 buckets 数组的长度是 2^5 = 32</p>
 <p>例如，现在有一个 key 经过哈希函数计算后，得到的哈希结果是：</p>
 <p> <code>10010111 | 000011110110110010001111001010100010010110010101010 │ 01010</code></p>
