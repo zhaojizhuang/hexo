@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://chumper.cn/"/>
-  <updated>2020-05-07T15:32:45.803Z</updated>
+  <updated>2020-05-14T15:54:16.680Z</updated>
   <id>https://chumper.cn/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Go 内存管理</title>
+    <link href="https://chumper.cn/2020/04/05/neicunguanliyufenpei/"/>
+    <id>https://chumper.cn/2020/04/05/neicunguanliyufenpei/</id>
+    <published>2020-04-05T10:16:18.000Z</published>
+    <updated>2020-05-14T15:54:16.680Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt; Go这门语言抛弃了C/C++中的开发者管理内存的方式：主动申请与主动释放，增加了&lt;strong&gt;逃逸分析和GC&lt;/strong&gt;，将开发者从内存管理中释放出来，让开发者有更多的精力去关注软件设计，而不是底层的内存问题。这是Go语言成为高生产力语言的原因之一  引自【
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Go" scheme="https://chumper.cn/categories/Go/"/>
+    
+    
+      <category term="Go" scheme="https://chumper.cn/tags/Go/"/>
+    
+      <category term="内存管理" scheme="https://chumper.cn/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/>
+    
+  </entry>
   
   <entry>
     <title>Go 深入分析</title>
