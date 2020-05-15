@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Go,">
 
 
 
@@ -81,17 +81,21 @@
 
 
 
-<meta name="description" content="专注 k8s go docker">
-<meta name="keywords" content="k8s zhaojizhuang">
-<meta property="og:type" content="website">
-<meta property="og:title" content="赵吉壮">
-<meta property="og:url" content="https://chumper.cn/tags/k8s/index.html">
+<meta name="description" content="map原理分析map 结构体type hmap struct &amp;#123;    count     int    // 元素的个数    flags     uint8  // 状态标志    B         uint8  // 可以最多容纳 6.5 * 2 ^ B 个元素，6.5为装载因子    noverflow uint16 // 溢出的个数    hash0     uint32 /">
+<meta name="keywords" content="Go">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈 Go map ">
+<meta property="og:url" content="https://chumper.cn/2019/04/02/gomap/index.html">
 <meta property="og:site_name" content="赵吉壮">
-<meta property="og:description" content="专注 k8s go docker">
+<meta property="og:description" content="map原理分析map 结构体type hmap struct &amp;#123;    count     int    // 元素的个数    flags     uint8  // 状态标志    B         uint8  // 可以最多容纳 6.5 * 2 ^ B 个元素，6.5为装载因子    noverflow uint16 // 溢出的个数    hash0     uint32 /">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://chumper.cn/images/hmap.png">
+<meta property="og:image" content="https://chumper.cn/images/bmap.png">
+<meta property="og:updated_time" content="2020-05-15T15:11:35.511Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="赵吉壮">
-<meta name="twitter:description" content="专注 k8s go docker">
+<meta name="twitter:title" content="浅谈 Go map ">
+<meta name="twitter:description" content="map原理分析map 结构体type hmap struct &amp;#123;    count     int    // 元素的个数    flags     uint8  // 状态标志    B         uint8  // 可以最多容纳 6.5 * 2 ^ B 个元素，6.5为装载因子    noverflow uint16 // 溢出的个数    hash0     uint32 /">
+<meta name="twitter:image" content="https://chumper.cn/images/hmap.png">
 
 
 
@@ -122,14 +126,14 @@
 
 
 
-  <link rel="canonical" href="https://chumper.cn/tags/k8s/">
+  <link rel="canonical" href="https://chumper.cn/2019/04/02/gomap/">
 
 
 
 
 
 
-  <title>标签: k8s | 赵吉壮</title>
+  <title>浅谈 Go map  | 赵吉壮</title>
   
 
 
@@ -148,7 +152,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -284,82 +288,251 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>k8s<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chumper.cn/2019/04/02/gomap/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhaojizhuang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="赵吉壮">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2020/03/28/k8s-iptageles/" itemprop="url">
-              
-                <span itemprop="name">k8s iptables</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">浅谈 Go map </h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2020-03-28T13:19:10+08:00" content="2020-03-28">
-          03-28
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-02T14:19:10+08:00">
+                2019-04-02
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go/" itemprop="url" rel="index">
+                    <span itemprop="name">Go</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+      
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/03/25/container-network/" itemprop="url">
-              
-                <span itemprop="name">容器网络</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2020-03-25T17:29:18+08:00" content="2020-03-25">
-          03-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
+        <h2 id="map原理分析"><a href="#map原理分析" class="headerlink" title="map原理分析"></a>map原理分析</h2><h3 id="map-结构体"><a href="#map-结构体" class="headerlink" title="map 结构体"></a>map 结构体</h3><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> hmap <span class="keyword">struct</span> &#123;</span><br><span class="line">    count     <span class="keyword">int</span>    <span class="comment">// 元素的个数</span></span><br><span class="line">    flags     <span class="keyword">uint8</span>  <span class="comment">// 状态标志</span></span><br><span class="line">    B         <span class="keyword">uint8</span>  <span class="comment">// 可以最多容纳 6.5 * 2 ^ B 个元素，6.5为装载因子</span></span><br><span class="line">    noverflow <span class="keyword">uint16</span> <span class="comment">// 溢出的个数</span></span><br><span class="line">    hash0     <span class="keyword">uint32</span> <span class="comment">// 哈希种子</span></span><br><span class="line"></span><br><span class="line">    buckets    unsafe.Pointer <span class="comment">// 桶的地址</span></span><br><span class="line">    oldbuckets unsafe.Pointer <span class="comment">// 旧桶的地址，用于扩容</span></span><br><span class="line">    nevacuate  <span class="keyword">uintptr</span>        <span class="comment">// 搬迁进度，小于nevacuate的已经搬迁</span></span><br><span class="line">    overflow *[<span class="number">2</span>]*[]*bmap </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// A bucket for a Go map.</span></span><br><span class="line"><span class="keyword">type</span> bmap <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="comment">// 每个元素hash值的高8位，如果tophash[0] &lt; minTopHash，表示这个桶的搬迁状态</span></span><br><span class="line">    tophash [bucketCnt]<span class="keyword">uint8</span></span><br><span class="line">    <span class="comment">// bucketCnt是常量8,接下来是8个key、8个value，但是我们不能直接看到；为了优化对齐，go采用了key放在一起，value放在一起的存储方式，</span></span><br><span class="line"><span class="number">8</span>个k，<span class="number">8</span>个v得内存地址</span><br><span class="line">    <span class="comment">// 再接下来是hash冲突发生时，下一个溢出桶的地址</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>bmap不只tophash还有两个方法 overflow 和setoverflow</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b *bmap)</span> <span class="title">overflow</span><span class="params">(t *maptype)</span> *<span class="title">bmap</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> *(**bmap)(add(unsafe.Pointer(b), <span class="keyword">uintptr</span>(t.bucketsize)-sys.PtrSize))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b *bmap)</span> <span class="title">setoverflow</span><span class="params">(t *maptype, ovf *bmap)</span></span> &#123;</span><br><span class="line">	*(**bmap)(add(unsafe.Pointer(b), <span class="keyword">uintptr</span>(t.bucketsize)-sys.PtrSize)) = ovf</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>hmap中的buckets中的原色bucket就是bmap，即 buckets[0],bucket[1],… bucket[2^B-1]如下图</p>
+<p><img src="/images/hmap.png" alt=""></p>
+<p><strong>bucket就是bmap</strong></p>
+<p>bmap 是存放 k-v 的地方，我们把视角拉近，仔细看 bmap 的内部组成。</p>
+<p><img src="/images/bmap.png" alt=""></p>
+<p>key 经过哈希计算后得到哈希值，共 64 个 bit 位（64位机，32位机就不讨论了，现在主流都是64位机），计算它到底要落在哪个桶时，只会用到<strong>最后 B 个 bit 位</strong>。还记得前面提到过的 B 吗？如果 B = 5，那么桶的数量，也就是 buckets 数组的长度是 2^5 = 32</p>
+<p>例如，现在有一个 key 经过哈希函数计算后，得到的哈希结果是：</p>
+<p> <code>10010111 | 000011110110110010001111001010100010010110010101010 │ 01010</code></p>
+<p>用最后的 5 个 bit 位，也就是 <code>01010</code>，值为 10，也就是 10 号桶。这个操作实际上就是取余操作，但是取余开销太大，所以代码实现上用的位操作代替。</p>
+<p>再用哈希值的高 8 位，找到此 key 在 bucket 中的位置，这是在寻找已有的 key。最开始桶内还没有 key，新加入的 key 会找到第一个空位，放入。</p>
+<p>buckets 编号就是桶编号，当两个不同的 key 落在同一个桶中，也就是发生了哈希冲突。冲突的解决手段是用链表法：在 bucket 中，从前往后找到第一个空位。这样，在查找某个 key 时，先找到对应的桶，再去遍历 bucket 中的 key</p>
+<p><strong>hash冲突的两种表示方式</strong>：</p>
+<ul>
+<li>开放寻址法（hash冲突时，在当前index往后查找第一个空的位置即可）</li>
+<li>拉链法</li>
+</ul>
+<p>map在写入过程会发生扩容，<code>runtime.mapassign</code> <strong>函数会在以下两种情况发生时触发哈希的扩容</strong>：</p>
+<ul>
+<li>装载因子已经超过 6.5；装载因子=总数量/桶的数量</li>
+<li>哈希使用了太多溢出桶；溢出捅的数量 超过正常桶的数量 即 noverflow 大于 1&lt;&lt;B buckets</li>
+</ul>
+<p><strong>每次都会将桶的数量翻倍</strong></p>
+<h3 id="扩容机制："><a href="#扩容机制：" class="headerlink" title="扩容机制："></a>扩容机制：</h3><ul>
+<li><strong>翻倍扩容</strong>：哈希在存储元素过多时状态会触发扩容操作，每次都会将桶的数量翻倍，整个扩容过程并不是原子的，而是通过 runtime.growWork 增量触发的，在扩容期间访问哈希表时会使用旧桶，向哈希表<strong>写入数据时</strong>会触发旧桶元素的分流；</li>
+<li><strong>等量扩容</strong>，<strong>为了解决大量写入、删除造成的内存泄漏问题</strong>，哈希引入了 sameSizeGrow这一机制，在出现较多溢出桶时会对哈希进行『内存整理』减少对空间的占用。</li>
+</ul>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+<li><p><a href="https://www.jianshu.com/p/aa0d4808cbb8" target="_blank" rel="noopener">https://www.jianshu.com/p/aa0d4808cbb8</a></p>
+</li>
+<li><p><a href="https://segmentfault.com/a/1190000018387055" target="_blank" rel="noopener">https://segmentfault.com/a/1190000018387055</a></p>
+</li>
+</ul>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    zhaojizhuang
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://chumper.cn/2019/04/02/gomap/" title="浅谈 Go map ">https://chumper.cn/2019/04/02/gomap/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Go/" rel="tag"># Go</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/12/cisco-platform/" rel="next" title="了解思科 Tetration 平台">
+                <i class="fa fa-chevron-left"></i> 了解思科 Tetration 平台
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/10/zuoertingfeng/" rel="prev" title="【左耳听风】系列专栏">
+                【左耳听风】系列专栏 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <div id="gitalk-container"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script type="text/javascript">
+        var gitalk = new Gitalk({
+            clientID: '9ae2de7f8db1408d1504',
+            clientSecret: 'd01059f84cfbd311a0614b07050456ed4ec8807a',
+            id: window.location.pathname,
+            repo: 'blogtalk',
+            owner: 'zhaojizhuang',
+            admin: 'zhaojizhuang'
+        })
+        gitalk.render('gitalk-container')
+    </script>
+    
+
 
         </div>
         
@@ -380,8 +553,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -449,6 +631,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#map原理分析"><span class="nav-number">1.</span> <span class="nav-text">map原理分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#map-结构体"><span class="nav-number">1.1.</span> <span class="nav-text">map 结构体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩容机制："><span class="nav-number">1.2.</span> <span class="nav-text">扩容机制：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">1.3.</span> <span class="nav-text">参考链接</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -592,6 +790,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

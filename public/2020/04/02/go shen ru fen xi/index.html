@@ -89,17 +89,15 @@
 <meta property="og:site_name" content="赵吉壮">
 <meta property="og:description" content="Go深入分析go程序是如何运行的参考链接1 defer 源码分析参考链接 defer、return、返回值三者的执行逻辑应该是：return最先执行，return负责将结果写入返回值中；接着defer开始执行一些收尾工作；最后函数携带当前返回值退出 逃逸分析 堆栈分配参考链接 go build -gcflags &amp;#39;-m -l&amp;#39; xxx.go 就可以看到逃逸分析的过程和结果 go性能">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://chumper.cn/images/hmap.png">
-<meta property="og:image" content="https://chumper.cn/images/bmap.png">
 <meta property="og:image" content="https://img.draveness.me/2020-01-19-15794253176199-golang-panic-and-defers.png">
 <meta property="og:image" content="https://pic4.zhimg.com/80/v2-0cccb4976f8f2c2f8107f2b3a5bc46b3_720w.jpg">
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-90632d0dc3ded7f91379b848ab53974c_720w.jpg">
 <meta property="og:image" content="https://pic4.zhimg.com/80/v2-40bd5825e27cf49b7fd9a59dfcbe4d6f_720w.jpg">
-<meta property="og:updated_time" content="2020-05-07T15:32:45.803Z">
+<meta property="og:updated_time" content="2020-05-15T15:12:23.474Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Go 深入分析">
 <meta name="twitter:description" content="Go深入分析go程序是如何运行的参考链接1 defer 源码分析参考链接 defer、return、返回值三者的执行逻辑应该是：return最先执行，return负责将结果写入返回值中；接着defer开始执行一些收尾工作；最后函数携带当前返回值退出 逃逸分析 堆栈分配参考链接 go build -gcflags &amp;#39;-m -l&amp;#39; xxx.go 就可以看到逃逸分析的过程和结果 go性能">
-<meta name="twitter:image" content="https://chumper.cn/images/hmap.png">
+<meta name="twitter:image" content="https://img.draveness.me/2020-01-19-15794253176199-golang-panic-and-defers.png">
 
 
 
@@ -419,46 +417,6 @@
 </ul>
 <p><code>go run main.go 2&gt; trace.out</code></p>
 <p>它能够跟踪捕获各种执行中的事件，例如 Goroutine 的创建/阻塞/解除阻塞，Syscall 的进入/退出/阻止，GC 事件，Heap 的大小改变，Processor 启动/停止等等</p>
-<h2 id="map原理分析"><a href="#map原理分析" class="headerlink" title="map原理分析"></a>map原理分析</h2><p>map 结构体</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> hmap <span class="keyword">struct</span> &#123;</span><br><span class="line">    count     <span class="keyword">int</span>    <span class="comment">// 元素的个数</span></span><br><span class="line">    flags     <span class="keyword">uint8</span>  <span class="comment">// 状态标志</span></span><br><span class="line">    B         <span class="keyword">uint8</span>  <span class="comment">// 可以最多容纳 6.5 * 2 ^ B 个元素，6.5为装载因子</span></span><br><span class="line">    noverflow <span class="keyword">uint16</span> <span class="comment">// 溢出的个数</span></span><br><span class="line">    hash0     <span class="keyword">uint32</span> <span class="comment">// 哈希种子</span></span><br><span class="line"></span><br><span class="line">    buckets    unsafe.Pointer <span class="comment">// 桶的地址</span></span><br><span class="line">    oldbuckets unsafe.Pointer <span class="comment">// 旧桶的地址，用于扩容</span></span><br><span class="line">    nevacuate  <span class="keyword">uintptr</span>        <span class="comment">// 搬迁进度，小于nevacuate的已经搬迁</span></span><br><span class="line">    overflow *[<span class="number">2</span>]*[]*bmap </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// A bucket for a Go map.</span></span><br><span class="line"><span class="keyword">type</span> bmap <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="comment">// 每个元素hash值的高8位，如果tophash[0] &lt; minTopHash，表示这个桶的搬迁状态</span></span><br><span class="line">    tophash [bucketCnt]<span class="keyword">uint8</span></span><br><span class="line">    <span class="comment">// bucketCnt是常量8,接下来是8个key、8个value，但是我们不能直接看到；为了优化对齐，go采用了key放在一起，value放在一起的存储方式，</span></span><br><span class="line"><span class="number">8</span>个k，<span class="number">8</span>个v得内存地址</span><br><span class="line">    <span class="comment">// 再接下来是hash冲突发生时，下一个溢出桶的地址</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>bmap不只tophash还有两个方法 overflow 和setoverflow</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b *bmap)</span> <span class="title">overflow</span><span class="params">(t *maptype)</span> *<span class="title">bmap</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> *(**bmap)(add(unsafe.Pointer(b), <span class="keyword">uintptr</span>(t.bucketsize)-sys.PtrSize))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b *bmap)</span> <span class="title">setoverflow</span><span class="params">(t *maptype, ovf *bmap)</span></span> &#123;</span><br><span class="line">	*(**bmap)(add(unsafe.Pointer(b), <span class="keyword">uintptr</span>(t.bucketsize)-sys.PtrSize)) = ovf</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>hmap中的buckets中的原色bucket就是bmap，即 buckets[0],bucket[1],… bucket[2^B-1]如下图</p>
-<p><img src="/images/hmap.png" alt=""></p>
-<p><strong>bucket就是bmap</strong></p>
-<p>bmap 是存放 k-v 的地方，我们把视角拉近，仔细看 bmap 的内部组成。</p>
-<p><img src="/images/bmap.png" alt=""></p>
-<p>key 经过哈希计算后得到哈希值，共 64 个 bit 位（64位机，32位机就不讨论了，现在主流都是64位机），计算它到底要落在哪个桶时，只会用到<strong>最后 B 个 bit 位</strong>。还记得前面提到过的 B 吗？如果 B = 5，那么桶的数量，也就是 buckets 数组的长度是 2^5 = 32</p>
-<p>例如，现在有一个 key 经过哈希函数计算后，得到的哈希结果是：</p>
-<p> <code>10010111 | 000011110110110010001111001010100010010110010101010 │ 01010</code></p>
-<p>用最后的 5 个 bit 位，也就是 <code>01010</code>，值为 10，也就是 10 号桶。这个操作实际上就是取余操作，但是取余开销太大，所以代码实现上用的位操作代替。</p>
-<p>再用哈希值的高 8 位，找到此 key 在 bucket 中的位置，这是在寻找已有的 key。最开始桶内还没有 key，新加入的 key 会找到第一个空位，放入。</p>
-<p>buckets 编号就是桶编号，当两个不同的 key 落在同一个桶中，也就是发生了哈希冲突。冲突的解决手段是用链表法：在 bucket 中，从前往后找到第一个空位。这样，在查找某个 key 时，先找到对应的桶，再去遍历 bucket 中的 key</p>
-<p><strong>map的两种表示方式</strong>：</p>
-<ul>
-<li>开放寻址法（hash冲突时，在当前index往后查找第一个空的位置即可）</li>
-<li>拉链法</li>
-</ul>
-<p>map在写入过程会发生扩容，<code>runtime.mapassign</code> <strong>函数会在以下两种情况发生时触发哈希的扩容</strong>：</p>
-<ul>
-<li>装载因子已经超过 6.5；装载因子=总数量/桶的数量</li>
-<li>哈希使用了太多溢出桶；溢出捅的数量 超过正常桶的数量 即 noverflow 大于 1&lt;&lt;B buckets</li>
-</ul>
-<p><strong>每次都会将桶的数量翻倍</strong></p>
-<p>扩容机制：</p>
-<ul>
-<li><strong>翻倍扩容</strong>：哈希在存储元素过多时状态会触发扩容操作，每次都会将桶的数量翻倍，整个扩容过程并不是原子的，而是通过 runtime.growWork 增量触发的，在扩容期间访问哈希表时会使用旧桶，向哈希表<strong>写入数据时</strong>会触发旧桶元素的分流；</li>
-<li><strong>等量扩容</strong>，<strong>为了解决大量写入、删除造成的内存泄漏问题</strong>，哈希引入了 sameSizeGrow这一机制，在出现较多溢出桶时会对哈希进行『内存整理』减少对空间的占用。</li>
-</ul>
-<p>参考链接 </p>
-<ul>
-<li><p><a href="https://www.jianshu.com/p/aa0d4808cbb8" target="_blank" rel="noopener">https://www.jianshu.com/p/aa0d4808cbb8</a></p>
-</li>
-<li><p><a href="https://segmentfault.com/a/1190000018387055" target="_blank" rel="noopener">https://segmentfault.com/a/1190000018387055</a></p>
-</li>
-<li><p>draveness <a href="https://draveness.me/golang/docs/part2-foundation/ch03-datastructure/golang-hashmap/" target="_blank" rel="noopener">https://draveness.me/golang/docs/part2-foundation/ch03-datastructure/golang-hashmap/</a></p>
-</li>
-</ul>
 <h2 id="interface"><a href="#interface" class="headerlink" title="interface"></a>interface</h2><ol>
 <li><p>不含有任何方法的 <code>interface</code></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> eface <span class="keyword">struct</span> &#123; <span class="comment">// 16 bytes</span></span><br><span class="line">	_type *_type</span><br><span class="line">	data  unsafe.Pointer</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -592,10 +550,6 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/04/05/neicunguanliyufenpei/" rel="prev" title="Go 内存管理">
-                Go 内存管理 <i class="fa fa-chevron-right"></i>
-              </a>
-            
           </div>
         </div>
       
@@ -686,7 +640,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -749,7 +703,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Go深入分析"><span class="nav-number">1.</span> <span class="nav-text">Go深入分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#go程序是如何运行的"><span class="nav-number">1.1.</span> <span class="nav-text">go程序是如何运行的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#defer-源码分析"><span class="nav-number">1.2.</span> <span class="nav-text">defer 源码分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逃逸分析-堆栈分配"><span class="nav-number">1.3.</span> <span class="nav-text">逃逸分析 堆栈分配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#go性能大杀器-pprof"><span class="nav-number">1.4.</span> <span class="nav-text">go性能大杀器 pprof</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对于web开放的pprof-（在http的go程序中-添加-quot-net-http-pprof-quot-的import-会增加-debug-pprof-的endpoint-结束后将默认进入-pprof-的交互式命令模式"><span class="nav-number">1.4.1.</span> <span class="nav-text">对于web开放的pprof （在http的go程序中 添加 _ &quot;net/http/pprof&quot;的import,会增加 debug/pprof 的endpoint),结束后将默认进入 pprof 的交互式命令模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#go性能大杀器-trace"><span class="nav-number">1.5.</span> <span class="nav-text">go性能大杀器 trace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map原理分析"><span class="nav-number">1.6.</span> <span class="nav-text">map原理分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#interface"><span class="nav-number">1.7.</span> <span class="nav-text">interface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#panic"><span class="nav-number">1.8.</span> <span class="nav-text">panic</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#make-new"><span class="nav-number">1.9.</span> <span class="nav-text">make  new</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#epoll"><span class="nav-number">1.10.</span> <span class="nav-text">epoll</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IO-多路复用-amp-epoll"><span class="nav-number">1.11.</span> <span class="nav-text">IO 多路复用 &amp; epoll</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#select"><span class="nav-number">1.11.1.</span> <span class="nav-text">select</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#poll与select一样，只是去掉了-1024的限制"><span class="nav-number">1.11.2.</span> <span class="nav-text">poll与select一样，只是去掉了 1024的限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#epoll-1"><span class="nav-number">1.11.3.</span> <span class="nav-text">epoll</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Go深入分析"><span class="nav-number">1.</span> <span class="nav-text">Go深入分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#go程序是如何运行的"><span class="nav-number">1.1.</span> <span class="nav-text">go程序是如何运行的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#defer-源码分析"><span class="nav-number">1.2.</span> <span class="nav-text">defer 源码分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逃逸分析-堆栈分配"><span class="nav-number">1.3.</span> <span class="nav-text">逃逸分析 堆栈分配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#go性能大杀器-pprof"><span class="nav-number">1.4.</span> <span class="nav-text">go性能大杀器 pprof</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对于web开放的pprof-（在http的go程序中-添加-quot-net-http-pprof-quot-的import-会增加-debug-pprof-的endpoint-结束后将默认进入-pprof-的交互式命令模式"><span class="nav-number">1.4.1.</span> <span class="nav-text">对于web开放的pprof （在http的go程序中 添加 _ &quot;net/http/pprof&quot;的import,会增加 debug/pprof 的endpoint),结束后将默认进入 pprof 的交互式命令模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#go性能大杀器-trace"><span class="nav-number">1.5.</span> <span class="nav-text">go性能大杀器 trace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#interface"><span class="nav-number">1.6.</span> <span class="nav-text">interface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#panic"><span class="nav-number">1.7.</span> <span class="nav-text">panic</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#make-new"><span class="nav-number">1.8.</span> <span class="nav-text">make  new</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#epoll"><span class="nav-number">1.9.</span> <span class="nav-text">epoll</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IO-多路复用-amp-epoll"><span class="nav-number">1.10.</span> <span class="nav-text">IO 多路复用 &amp; epoll</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#select"><span class="nav-number">1.10.1.</span> <span class="nav-text">select</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#poll与select一样，只是去掉了-1024的限制"><span class="nav-number">1.10.2.</span> <span class="nav-text">poll与select一样，只是去掉了 1024的限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#epoll-1"><span class="nav-number">1.10.3.</span> <span class="nav-text">epoll</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
