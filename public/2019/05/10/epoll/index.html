@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="linux,epoll,">
 
 
 
@@ -81,17 +81,22 @@
 
 
 
-<meta name="description" content="专注 k8s go docker">
-<meta name="keywords" content="k8s zhaojizhuang">
-<meta property="og:type" content="website">
-<meta property="og:title" content="赵吉壮">
-<meta property="og:url" content="https://chumper.cn/page/2/index.html">
+<meta name="description" content="epollIO 多路复用目前支持I/O多路复用的系统调用有 select，pselect，poll，epoll ，I/O多路复用就是通过一种机制，一个进程可以监视多个描述符，一旦某个描述符就绪（一般是读就绪或者写就绪），能够通知程序进行相应的读写操作 select调用后select函数会阻塞，直到有描述符就绪（有数据可读、可写），或者超时，函数返回。当select函数返回后，可以通过遍历fdset">
+<meta name="keywords" content="linux,epoll">
+<meta property="og:type" content="article">
+<meta property="og:title" content=" 谈谈 epoll ">
+<meta property="og:url" content="https://chumper.cn/2019/05/10/epoll/index.html">
 <meta property="og:site_name" content="赵吉壮">
-<meta property="og:description" content="专注 k8s go docker">
+<meta property="og:description" content="epollIO 多路复用目前支持I/O多路复用的系统调用有 select，pselect，poll，epoll ，I/O多路复用就是通过一种机制，一个进程可以监视多个描述符，一旦某个描述符就绪（一般是读就绪或者写就绪），能够通知程序进行相应的读写操作 select调用后select函数会阻塞，直到有描述符就绪（有数据可读、可写），或者超时，函数返回。当select函数返回后，可以通过遍历fdset">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-0cccb4976f8f2c2f8107f2b3a5bc46b3_720w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-90632d0dc3ded7f91379b848ab53974c_720w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-40bd5825e27cf49b7fd9a59dfcbe4d6f_720w.jpg">
+<meta property="og:updated_time" content="2020-05-15T15:16:08.756Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="赵吉壮">
-<meta name="twitter:description" content="专注 k8s go docker">
+<meta name="twitter:title" content=" 谈谈 epoll ">
+<meta name="twitter:description" content="epollIO 多路复用目前支持I/O多路复用的系统调用有 select，pselect，poll，epoll ，I/O多路复用就是通过一种机制，一个进程可以监视多个描述符，一旦某个描述符就绪（一般是读就绪或者写就绪），能够通知程序进行相应的读写操作 select调用后select函数会阻塞，直到有描述符就绪（有数据可读、可写），或者超时，函数返回。当select函数返回后，可以通过遍历fdset">
+<meta name="twitter:image" content="https://pic4.zhimg.com/80/v2-0cccb4976f8f2c2f8107f2b3a5bc46b3_720w.jpg">
 
 
 
@@ -122,14 +127,14 @@
 
 
 
-  <link rel="canonical" href="https://chumper.cn/page/2/">
+  <link rel="canonical" href="https://chumper.cn/2019/05/10/epoll/">
 
 
 
 
 
 
-  <title>赵吉壮</title>
+  <title> 谈谈 epoll  | 赵吉壮</title>
   
 
 
@@ -148,8 +153,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -284,9 +288,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -316,9 +320,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/10/epoll/" itemprop="url"> 谈谈 epoll </a></h1>
+          <h1 class="post-title" itemprop="name headline"> 谈谈 epoll </h1>
         
 
         <div class="post-meta">
@@ -368,19 +370,36 @@
       
 
       
-        
-          
-          epollIO 多路复用目前支持I/O多路复用的系统调用有 select，pselect，poll，epoll ，I/O多路复用就是通过一种机制，一个进程可以监视多个描述符，一旦某个描述符就绪（一般是读就绪或者写就绪），能够通知程序进行相应的读写操作
-select调用后select函数会阻塞，直到有
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/05/10/epoll/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <h2 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a>epoll</h2><h2 id="IO-多路复用"><a href="#IO-多路复用" class="headerlink" title="IO 多路复用"></a>IO 多路复用</h2><p>目前支持I/O多路复用的系统调用有 <code>select，pselect，poll，epoll</code> ，I/O多路复用就是通过一种机制，<code>一个进程可以监视多个描述符，一旦某个描述符就绪（一般是读就绪或者写就绪），能够通知程序进行相应的读写操作</code></p>
+<h3 id="select"><a href="#select" class="headerlink" title="select"></a>select</h3><p>调用后select函数会阻塞，直到有描述符就绪（有数据可读、可写），或者超时，函数返回。当select函数返回后，<strong>可以通过遍历fdset，来找到就绪的描述符</strong>。</p>
+<p>select的流程</p>
+<p>假如程序同时监视如下图的sock1、sock2和sock3三个socket，那么在调用select之后，<strong>操作系统把进程A分别加入这三个socket的等待队列中</strong></p>
+<p><img src="https://pic4.zhimg.com/80/v2-0cccb4976f8f2c2f8107f2b3a5bc46b3_720w.jpg" alt=""></p>
+<p>当任何一个socket收到数据后，中断程序将唤起进程,将进程从所有<strong>fd（socket）的等待队列中</strong>移除，再将进程加入到工作队列里面</p>
+<p>进程A被唤醒后，它知道至少有一个socket接收了数据。<strong>程序需遍历一遍socket列表，可以得到就绪的socket</strong></p>
+<p>缺点：</p>
+<ul>
+<li><p>其一，每次调用select都需要将进程加入到所有监视socket的等待队列，每次唤醒都需要从每个队列中移除。这里涉及了两次遍历，而且每次都要将整个fds列表传递给内核，有一定的开销。正是因为遍历操作开销大，出于效率的考量，才会规定select的最大监视数量，<strong>默认只能监视1024个socket</strong>。</p>
+</li>
+<li><p>其二，进程被唤醒后，程序并不知道哪些socket收到数据，还需要遍历一次。</p>
+</li>
+</ul>
+<h3 id="poll与select一样，只是去掉了-1024的限制"><a href="#poll与select一样，只是去掉了-1024的限制" class="headerlink" title="poll与select一样，只是去掉了 1024的限制"></a>poll与select一样，只是去掉了 1024的限制</h3><h3 id="epoll-1"><a href="#epoll-1" class="headerlink" title="epoll"></a>epoll</h3><p><code>epoll</code> 事先通过 <code>epoll_ctl()</code> 来注册一个文件描述符，一旦基于某个文件描述符就绪时，内核会采用类似 <code>callback</code> 的回调机制，迅速激活这个文件描述符，当进程调用 <code>epoll_wait()</code> 时便得到通知。(<strong>此处去掉了遍历文件描述符，而是通过监听回调的的机制。这正是epoll的魅力所在</strong>。)</p>
+<p>epoll使<strong>用一个文件描述符(<code>eventpoll</code>)管理多个描述符</strong>，将用户关系的文件描述符的事件存放到内核的一个事件表中，这样在用户空间和内核空间的copy只需一次</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> s = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);   </span><br><span class="line">bind(s, ...)</span><br><span class="line">listen(s, ...)</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> epfd = epoll_create(...);</span><br><span class="line">epoll_ctl(epfd, ...); <span class="comment">//将所有需要监听的socket添加到epfd中</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    <span class="keyword">int</span> n = epoll_wait(...)</span><br><span class="line">    <span class="keyword">for</span>(接收到数据的socket)&#123;</span><br><span class="line">        <span class="comment">//处理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>流程：<br>首先创建 epoll对象<br>创建epoll对象后，可以用epoll_ctl添加或删除所要监听的socket</p>
+<p>假设计算机中正在运行进程A和进程B，在某时刻进程A运行到了epoll_wait语句。如下图所示，内核会将进程A放入eventpoll的等待队列中，阻塞进程</p>
+<p><img src="https://pic1.zhimg.com/80/v2-90632d0dc3ded7f91379b848ab53974c_720w.jpg" alt=""></p>
+<p>当socket接收到数据，<strong>中断程序一方面修改rdlist</strong>，另一方面唤醒eventpoll等待队列中的进程，进程A再次进入运行状态（如下图）。也因为rdlist的存在，<strong>进程A可以知道哪些socket发生了变化</strong>。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-40bd5825e27cf49b7fd9a59dfcbe4d6f_720w.jpg" alt=""></p>
+<p>参考文章 </p>
+<ol>
+<li><a href="https://www.jianshu.com/p/dfd940e7fca2" target="_blank" rel="noopener">https://www.jianshu.com/p/dfd940e7fca2</a></li>
+</ol>
+<p><a href="https://zhuanlan.zhihu.com/p/63179839" target="_blank" rel="noopener">2 罗培羽：如果这篇文章说不清epoll的本质，那就过来掐死我吧！(1)</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/64138532" target="_blank" rel="noopener">3 罗培羽：如果这篇文章说不清epoll的本质，那就过来掐死我吧！(2)</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/64746509" target="_blank" rel="noopener">4 罗培羽：如果这篇文章说不清epoll的本质，那就过来掐死我吧！(3)</a></p>
+
       
     </div>
     
@@ -392,317 +411,63 @@ select调用后select函数会阻塞，直到有
     
 
     
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    zhaojizhuang
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://chumper.cn/2019/05/10/epoll/" title=" 谈谈 epoll ">https://chumper.cn/2019/05/10/epoll/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chumper.cn/2019/04/05/go shen ru fen xi/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zhaojizhuang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="赵吉壮">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/05/go shen ru fen xi/" itemprop="url">Go 学习笔记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-05T14:19:10+08:00">
-                2019-04-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Go/" itemprop="url" rel="index">
-                    <span itemprop="name">Go</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/linux/" rel="tag"># linux</a>
           
-
+            <a href="/tags/epoll/" rel="tag"># epoll</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          
-          Go 学习笔记go程序是如何运行的参考链接1
-defer 源码分析参考链接
-defer、return、返回值三者的执行逻辑应该是：return最先执行，return负责将结果写入返回值中；接着defer开始执行一些收尾工作；最后函数携带当前返回值退出
-逃逸分析 堆栈分配参考链接
-go build -
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/04/05/go shen ru fen xi/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/05/go shen ru fen xi/" rel="next" title="Go 学习笔记">
+                <i class="fa fa-chevron-left"></i> Go 学习笔记
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chumper.cn/2019/04/02/gomap/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zhaojizhuang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="赵吉壮">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/02/gomap/" itemprop="url">浅谈 Go map </a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-02T14:19:10+08:00">
-                2019-04-02
-              </time>
+              <a href="/2019/07/10/zuoertingfeng/" rel="prev" title="【左耳听风】系列专栏">
+                【左耳听风】系列专栏 <i class="fa fa-chevron-right"></i>
+              </a>
             
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Go/" itemprop="url" rel="index">
-                    <span itemprop="name">Go</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-          map原理分析map 结构体type hmap struct &#123;    count     int    // 元素的个数    flags     uint8  // 状态标志    B         uint8  // 可以最多容纳 6.5 * 2 ^ B 个元素，6.5为装载因子 
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/04/02/gomap/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -712,323 +477,37 @@ go build -
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chumper.cn/2017/06/12/cisco-platform/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zhaojizhuang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="赵吉壮">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/12/cisco-platform/" itemprop="url">了解思科 Tetration 平台</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-12T18:16:18+08:00">
-                2017-06-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据中心/" itemprop="url" rel="index">
-                    <span itemprop="name">数据中心</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          介绍
-思科推出了 Tetration Analytics平台，Tetration 平台主要是对大规模数据中心和云平台上的网络流量的实时采集、存储和分析。
-
-Tetration 平台搭配基于Cloud Scale技术的硬件设备，流动在数据中心的任何一个数据包的元信息都可以被实时记录和存储下来。
-Tet
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/06/12/cisco-platform/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
 
 
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chumper.cn/2017/06/11/Docker/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zhaojizhuang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="赵吉壮">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/11/Docker/" itemprop="url">Docker 介绍及其应用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-11T23:40:18+08:00">
-                2017-06-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/docker/" itemprop="url" rel="index">
-                    <span itemprop="name">docker</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          
-重要链接！！！知乎上的深入浅出
-
-1.Docker 介绍便于入题，首先用 Docker 的logo解释下：
-那个大鲸鱼（或者是货轮）就是操作系统
-把要交付的应用程序看成是各种货物，原本要将各种各样形状、尺寸不同的货物放到大鲸鱼上，你得为每件货物考虑怎么安放（就是应用程序配套的环境），还得考虑货物和
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/06/11/Docker/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
           </div>
-          <!--/noindex-->
-        
-      
+          
+
+  
+    <div class="comments" id="comments">
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
   
   
-  
-  </article>
-
-
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <div id="gitalk-container"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script type="text/javascript">
+        var gitalk = new Gitalk({
+            clientID: '9ae2de7f8db1408d1504',
+            clientSecret: 'd01059f84cfbd311a0614b07050456ed4ec8807a',
+            id: window.location.pathname,
+            repo: 'blogtalk',
+            owner: 'zhaojizhuang',
+            admin: 'zhaojizhuang'
+        })
+        gitalk.render('gitalk-container')
+    </script>
     
-  </section>
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
-
-
-          </div>
-          
 
         </div>
         
@@ -1049,8 +528,17 @@ Tet
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -1118,6 +606,22 @@ Tet
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#epoll"><span class="nav-number">1.</span> <span class="nav-text">epoll</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IO-多路复用"><span class="nav-number">2.</span> <span class="nav-text">IO 多路复用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#select"><span class="nav-number">2.1.</span> <span class="nav-text">select</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#poll与select一样，只是去掉了-1024的限制"><span class="nav-number">2.2.</span> <span class="nav-text">poll与select一样，只是去掉了 1024的限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#epoll-1"><span class="nav-number">2.3.</span> <span class="nav-text">epoll</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1261,6 +765,10 @@ Tet
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

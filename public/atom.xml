@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://chumper.cn/"/>
-  <updated>2020-05-15T15:12:23.474Z</updated>
+  <updated>2020-05-06T15:55:07.050Z</updated>
   <id>https://chumper.cn/</id>
   
   <author>
@@ -15,37 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>Go 深入分析</title>
-    <link href="https://chumper.cn/2020/04/02/go%20shen%20ru%20fen%20xi/"/>
-    <id>https://chumper.cn/2020/04/02/go%20shen%20ru%20fen%20xi/</id>
-    <published>2020-04-02T06:19:10.000Z</published>
-    <updated>2020-05-15T15:12:23.474Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;Go深入分析&quot;&gt;&lt;a href=&quot;#Go深入分析&quot; class=&quot;headerlink&quot; title=&quot;Go深入分析&quot;&gt;&lt;/a&gt;Go深入分析&lt;/h1&gt;&lt;h2 id=&quot;go程序是如何运行的&quot;&gt;&lt;a href=&quot;#go程序是如何运行的&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Go" scheme="https://chumper.cn/categories/Go/"/>
-    
-    
-      <category term="Go" scheme="https://chumper.cn/tags/Go/"/>
-    
-      <category term="epoll" scheme="https://chumper.cn/tags/epoll/"/>
-    
-      <category term="linux" scheme="https://chumper.cn/tags/linux/"/>
-    
-  </entry>
   
   <entry>
     <title>k8s iptables</title>
@@ -187,6 +156,64 @@
       <category term="分布式" scheme="https://chumper.cn/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
     
       <category term="人生思考" scheme="https://chumper.cn/tags/%E4%BA%BA%E7%94%9F%E6%80%9D%E8%80%83/"/>
+    
+  </entry>
+  
+  <entry>
+    <title> 谈谈 epoll </title>
+    <link href="https://chumper.cn/2019/05/10/epoll/"/>
+    <id>https://chumper.cn/2019/05/10/epoll/</id>
+    <published>2019-05-10T03:40:18.000Z</published>
+    <updated>2020-05-15T15:16:08.756Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;epoll&quot;&gt;&lt;a href=&quot;#epoll&quot; class=&quot;headerlink&quot; title=&quot;epoll&quot;&gt;&lt;/a&gt;epoll&lt;/h2&gt;&lt;h2 id=&quot;IO-多路复用&quot;&gt;&lt;a href=&quot;#IO-多路复用&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="linux" scheme="https://chumper.cn/tags/linux/"/>
+    
+      <category term="epoll" scheme="https://chumper.cn/tags/epoll/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Go 学习笔记</title>
+    <link href="https://chumper.cn/2019/04/05/go%20shen%20ru%20fen%20xi/"/>
+    <id>https://chumper.cn/2019/04/05/go%20shen%20ru%20fen%20xi/</id>
+    <published>2019-04-05T06:19:10.000Z</published>
+    <updated>2020-05-15T15:13:32.092Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Go-学习笔记&quot;&gt;&lt;a href=&quot;#Go-学习笔记&quot; class=&quot;headerlink&quot; title=&quot;Go 学习笔记&quot;&gt;&lt;/a&gt;Go 学习笔记&lt;/h1&gt;&lt;h2 id=&quot;go程序是如何运行的&quot;&gt;&lt;a href=&quot;#go程序是如何运行的&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Go" scheme="https://chumper.cn/categories/Go/"/>
+    
+    
+      <category term="linux" scheme="https://chumper.cn/tags/linux/"/>
+    
+      <category term="epoll" scheme="https://chumper.cn/tags/epoll/"/>
+    
+      <category term="Go" scheme="https://chumper.cn/tags/Go/"/>
     
   </entry>
   
