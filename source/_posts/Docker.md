@@ -3,7 +3,7 @@ layout: post
 title:  "Docker 介绍及其应用"
 date:   2017-06-11 23:40:18 +0800
 categories: docker
-tags:  docker
+tags:  ["docker"]
 author: zhaojizhuang
 mathjax: true
 ---

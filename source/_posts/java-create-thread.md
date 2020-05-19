@@ -3,7 +3,7 @@ layout: post
 title:  "Java 中的并发"
 date:   2017-06-10 22:40:18 +0800
 categories: Java
-tags:  线程 java
+tags:  ["java","线程"]
 author: zhaojizhuang
 mathjax: true
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "容器网络"
-date:   2020-03-25 17:29:18 +0800
+date:   2018-10-25 17:29:18 +0800
 categories: k8s
 tags:  ["k8s", "容器网络"]
 author: zhaojizhuang
@@ -13,8 +13,7 @@ author: zhaojizhuang
 
 ##  vxlan 
 
-vxlan原理 overlay网络
-VXLAN通过MAC-in-UDP的报文封装，实现了二层报文在三层网络上的透传
+vxlan原理: VXLAN通过MAC-in-UDP的报文封装，实现了二层报文在三层网络上的透传,属于overlay网络
 
 ## Flannel
 

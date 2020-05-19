@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://chumper.cn/"/>
-  <updated>2020-05-06T15:55:07.050Z</updated>
+  <updated>2020-05-19T13:31:23.799Z</updated>
   <id>https://chumper.cn/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>k8s iptables</title>
-    <link href="https://chumper.cn/2020/03/28/k8s-iptageles/"/>
-    <id>https://chumper.cn/2020/03/28/k8s-iptageles/</id>
-    <published>2020-03-28T05:19:10.000Z</published>
-    <updated>2020-05-06T15:55:07.050Z</updated>
+    <title>自行配置你的HPA扩缩容速率</title>
+    <link href="https://chumper.cn/2020/05/19/confighpa/"/>
+    <id>https://chumper.cn/2020/05/19/confighpa/</id>
+    <published>2020-05-19T10:16:18.000Z</published>
+    <updated>2020-05-19T13:31:23.799Z</updated>
     
     <summary type="html">
     
@@ -29,7 +29,7 @@
       
         
         
-          &lt;h1 id=&quot;k8s-svc之-iptables规则&quot;&gt;&lt;a href=&quot;#k8s-svc之-iptables规则&quot; class=&quot;headerlink&quot; title=&quot;k8s svc之 iptables规则&quot;&gt;&lt;/a&gt;k8s svc之 iptables规则&lt;/h1&gt;&lt;h2
+          &lt;h2 id=&quot;HPA介绍&quot;&gt;&lt;a href=&quot;#HPA介绍&quot; class=&quot;headerlink&quot; title=&quot;HPA介绍&quot;&gt;&lt;/a&gt;HPA介绍&lt;/h2&gt;&lt;p&gt;HPA, Pod 水平自动伸缩（Horizontal Pod Autoscaler）特性，
         
       
     
@@ -40,37 +40,6 @@
     
     
       <category term="k8s" scheme="https://chumper.cn/tags/k8s/"/>
-    
-      <category term="iptables" scheme="https://chumper.cn/tags/iptables/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>容器网络</title>
-    <link href="https://chumper.cn/2020/03/25/container-network/"/>
-    <id>https://chumper.cn/2020/03/25/container-network/</id>
-    <published>2020-03-25T09:29:18.000Z</published>
-    <updated>2020-05-06T15:55:07.050Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;容器网络&quot;&gt;&lt;a href=&quot;#容器网络&quot; class=&quot;headerlink&quot; title=&quot;容器网络&quot;&gt;&lt;/a&gt;容器网络&lt;/h1&gt;&lt;h2 id=&quot;vxlan&quot;&gt;&lt;a href=&quot;#vxlan&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="k8s" scheme="https://chumper.cn/categories/k8s/"/>
-    
-    
-      <category term="k8s" scheme="https://chumper.cn/tags/k8s/"/>
-    
-      <category term="容器网络" scheme="https://chumper.cn/tags/%E5%AE%B9%E5%99%A8%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   
@@ -133,33 +102,6 @@
   </entry>
   
   <entry>
-    <title>【左耳听风】系列专栏</title>
-    <link href="https://chumper.cn/2019/07/10/zuoertingfeng/"/>
-    <id>https://chumper.cn/2019/07/10/zuoertingfeng/</id>
-    <published>2019-07-10T03:40:18.000Z</published>
-    <updated>2020-05-06T15:55:07.050Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;【左耳听风】系列专栏&quot;&gt;&lt;a href=&quot;#【左耳听风】系列专栏&quot; class=&quot;headerlink&quot; title=&quot;【左耳听风】系列专栏&quot;&gt;&lt;/a&gt;【左耳听风】系列专栏&lt;/h1&gt;&lt;p&gt;&lt;img
-        
-      
-    
-    </summary>
-    
-    
-    
-      <category term="分布式" scheme="https://chumper.cn/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
-    
-      <category term="人生思考" scheme="https://chumper.cn/tags/%E4%BA%BA%E7%94%9F%E6%80%9D%E8%80%83/"/>
-    
-  </entry>
-  
-  <entry>
     <title> 谈谈 epoll </title>
     <link href="https://chumper.cn/2019/05/10/epoll/"/>
     <id>https://chumper.cn/2019/05/10/epoll/</id>
@@ -183,37 +125,6 @@
       <category term="linux" scheme="https://chumper.cn/tags/linux/"/>
     
       <category term="epoll" scheme="https://chumper.cn/tags/epoll/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Go 学习笔记</title>
-    <link href="https://chumper.cn/2019/04/05/go%20shen%20ru%20fen%20xi/"/>
-    <id>https://chumper.cn/2019/04/05/go%20shen%20ru%20fen%20xi/</id>
-    <published>2019-04-05T06:19:10.000Z</published>
-    <updated>2020-05-15T15:13:32.092Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;Go-学习笔记&quot;&gt;&lt;a href=&quot;#Go-学习笔记&quot; class=&quot;headerlink&quot; title=&quot;Go 学习笔记&quot;&gt;&lt;/a&gt;Go 学习笔记&lt;/h1&gt;&lt;h2 id=&quot;go程序是如何运行的&quot;&gt;&lt;a href=&quot;#go程序是如何运行的&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Go" scheme="https://chumper.cn/categories/Go/"/>
-    
-    
-      <category term="linux" scheme="https://chumper.cn/tags/linux/"/>
-    
-      <category term="epoll" scheme="https://chumper.cn/tags/epoll/"/>
-    
-      <category term="Go" scheme="https://chumper.cn/tags/Go/"/>
     
   </entry>
   
@@ -245,11 +156,130 @@
   </entry>
   
   <entry>
+    <title>Go 学习笔记</title>
+    <link href="https://chumper.cn/2019/01/05/go%20shen%20ru%20fen%20xi/"/>
+    <id>https://chumper.cn/2019/01/05/go%20shen%20ru%20fen%20xi/</id>
+    <published>2019-01-05T06:19:10.000Z</published>
+    <updated>2020-05-19T13:27:57.711Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Go-学习笔记&quot;&gt;&lt;a href=&quot;#Go-学习笔记&quot; class=&quot;headerlink&quot; title=&quot;Go 学习笔记&quot;&gt;&lt;/a&gt;Go 学习笔记&lt;/h1&gt;&lt;h2 id=&quot;go程序是如何运行的&quot;&gt;&lt;a href=&quot;#go程序是如何运行的&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Go" scheme="https://chumper.cn/categories/Go/"/>
+    
+    
+      <category term="linux" scheme="https://chumper.cn/tags/linux/"/>
+    
+      <category term="epoll" scheme="https://chumper.cn/tags/epoll/"/>
+    
+      <category term="Go" scheme="https://chumper.cn/tags/Go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>kubernetes&amp;容器网络（2）之iptables</title>
+    <link href="https://chumper.cn/2018/12/05/k8s-iptables/"/>
+    <id>https://chumper.cn/2018/12/05/k8s-iptables/</id>
+    <published>2018-12-05T05:19:10.000Z</published>
+    <updated>2020-05-19T13:24:32.496Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;iptables规则&quot;&gt;&lt;a href=&quot;#iptables规则&quot; class=&quot;headerlink&quot; title=&quot;iptables规则&quot;&gt;&lt;/a&gt;iptables规则&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;参考 &lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="k8s" scheme="https://chumper.cn/categories/k8s/"/>
+    
+    
+      <category term="k8s" scheme="https://chumper.cn/tags/k8s/"/>
+    
+      <category term="iptables" scheme="https://chumper.cn/tags/iptables/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>kubernetes&amp;容器网络（1）之seivice</title>
+    <link href="https://chumper.cn/2018/11/28/k8s-svc/"/>
+    <id>https://chumper.cn/2018/11/28/k8s-svc/</id>
+    <published>2018-11-28T05:19:10.000Z</published>
+    <updated>2020-05-19T13:23:56.312Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;1-Service介绍&quot;&gt;&lt;a href=&quot;#1-Service介绍&quot; class=&quot;headerlink&quot; title=&quot;1. Service介绍&quot;&gt;&lt;/a&gt;1. Service介绍&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Kubernetes&lt;/code&gt;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="k8s" scheme="https://chumper.cn/categories/k8s/"/>
+    
+    
+      <category term="k8s" scheme="https://chumper.cn/tags/k8s/"/>
+    
+      <category term="iptables" scheme="https://chumper.cn/tags/iptables/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>容器网络</title>
+    <link href="https://chumper.cn/2018/10/25/container-network/"/>
+    <id>https://chumper.cn/2018/10/25/container-network/</id>
+    <published>2018-10-25T09:29:18.000Z</published>
+    <updated>2020-05-15T15:39:57.315Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;容器网络&quot;&gt;&lt;a href=&quot;#容器网络&quot; class=&quot;headerlink&quot; title=&quot;容器网络&quot;&gt;&lt;/a&gt;容器网络&lt;/h1&gt;&lt;h2 id=&quot;vxlan&quot;&gt;&lt;a href=&quot;#vxlan&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="k8s" scheme="https://chumper.cn/categories/k8s/"/>
+    
+    
+      <category term="k8s" scheme="https://chumper.cn/tags/k8s/"/>
+    
+      <category term="容器网络" scheme="https://chumper.cn/tags/%E5%AE%B9%E5%99%A8%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
     <title>了解思科 Tetration 平台</title>
     <link href="https://chumper.cn/2017/06/12/cisco-platform/"/>
     <id>https://chumper.cn/2017/06/12/cisco-platform/</id>
     <published>2017-06-12T10:16:18.000Z</published>
-    <updated>2020-05-06T15:55:07.050Z</updated>
+    <updated>2020-05-19T13:30:06.852Z</updated>
     
     <summary type="html">
     
@@ -277,7 +307,7 @@
     <link href="https://chumper.cn/2017/06/11/Docker/"/>
     <id>https://chumper.cn/2017/06/11/Docker/</id>
     <published>2017-06-11T15:40:18.000Z</published>
-    <updated>2020-05-07T15:36:34.532Z</updated>
+    <updated>2020-05-19T13:30:23.654Z</updated>
     
     <summary type="html">
     
@@ -307,7 +337,7 @@
     <link href="https://chumper.cn/2017/06/10/java-create-thread/"/>
     <id>https://chumper.cn/2017/06/10/java-create-thread/</id>
     <published>2017-06-10T14:40:18.000Z</published>
-    <updated>2020-05-06T15:55:07.050Z</updated>
+    <updated>2020-05-19T13:30:57.269Z</updated>
     
     <summary type="html">
     
@@ -325,7 +355,9 @@
       <category term="Java" scheme="https://chumper.cn/categories/Java/"/>
     
     
-      <category term="线程 java" scheme="https://chumper.cn/tags/%E7%BA%BF%E7%A8%8B-java/"/>
+      <category term="java" scheme="https://chumper.cn/tags/java/"/>
+    
+      <category term="线程" scheme="https://chumper.cn/tags/%E7%BA%BF%E7%A8%8B/"/>
     
   </entry>
   

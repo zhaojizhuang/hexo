@@ -1,15 +1,12 @@
 ---
 layout: post
-title:  "k8s iptables"
-date:   2020-03-28 13:19:10 +0800
+title:  "kubernetes&容器网络（2）之iptables"
+date:   2018-12-05 13:19:10 +0800
 categories: k8s
 tags:  ["k8s", "iptables"]
 author: zhaojizhuang
 
 ---
-
-
-# k8s svc之 iptables规则
 
 
 ## iptables规则
