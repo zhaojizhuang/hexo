@@ -85,7 +85,7 @@
 <meta name="keywords" content="k8s zhaojizhuang">
 <meta property="og:type" content="website">
 <meta property="og:title" content="赵吉壮">
-<meta property="og:url" content="https://chumper.cn/tags/go/index.html">
+<meta property="og:url" content="https://chumper.cn/tags/Go/index.html">
 <meta property="og:site_name" content="赵吉壮">
 <meta property="og:description" content="专注 k8s go docker">
 <meta property="og:locale" content="zh-Hans">
@@ -101,7 +101,7 @@
     root: '/',
     scheme: 'Mist',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -122,14 +122,14 @@
 
 
 
-  <link rel="canonical" href="https://chumper.cn/tags/go/">
+  <link rel="canonical" href="https://chumper.cn/tags/Go/">
 
 
 
 
 
 
-  <title>标签: go | 赵吉壮</title>
+  <title>标签: Go | 赵吉壮</title>
   
 
 
@@ -291,7 +291,7 @@
 
     <div id="posts" class="posts-collapse">
       <div class="collection-title">
-        <h1>go<small>标签</small>
+        <h1>Go<small>标签</small>
         </h1>
       </div>
 
@@ -303,17 +303,69 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2020/02/10/fen-bu-shi-suo/" itemprop="url">
+            <a class="post-title-link" href="/2019/11/12/neicunguanliyufenpei/" itemprop="url">
               
-                <span itemprop="name">分布式锁</span>
+                <span itemprop="name">Go 内存管理</span>
               
             </a>
         
       </h2>
 
       <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2020-02-10T11:40:18+08:00" content="2020-02-10">
-          02-10
+        <time class="post-time" itemprop="dateCreated" datetime="2019-11-12T18:16:18+08:00" content="2019-11-12">
+          11-12
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+      
+        
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2019/04/02/gomap/" itemprop="url">
+              
+                <span itemprop="name">浅谈 Go map </span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2019-04-02T14:19:10+08:00" content="2019-04-02">
+          04-02
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+      
+        
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2019/01/05/go shen ru fen xi/" itemprop="url">
+              
+                <span itemprop="name">Go 学习笔记</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2019-01-05T14:19:10+08:00" content="2019-01-05">
+          01-05
         </time>
       </div>
 
@@ -383,7 +435,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -394,7 +446,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -884,72 +936,6 @@
               resultContent.innerHTML = searchResultList;
             }
           }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
-</body>
-</html>
-        }
 
           if ('auto' === 'auto') {
             input.addEventListener('input', inputEventFunction);

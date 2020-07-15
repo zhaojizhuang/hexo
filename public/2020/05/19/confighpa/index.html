@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="赵吉壮">
 <meta property="og:description" content="HPA介绍HPA, Pod 水平自动伸缩（Horizontal Pod Autoscaler）特性， 可以基于CPU利用率自动伸缩 replication controller、deployment和 replica set 中的 pod 数量，（除了 CPU 利用率）也可以 基于其他应程序提供的度量指标custom metrics。 pod 自动缩放不适用于无法缩放的对象，比如 DaemonSe">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-19T13:31:23.799Z">
+<meta property="og:updated_time" content="2020-05-19T15:17:40.517Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自行配置你的HPA扩缩容速率">
 <meta name="twitter:description" content="HPA介绍HPA, Pod 水平自动伸缩（Horizontal Pod Autoscaler）特性， 可以基于CPU利用率自动伸缩 replication controller、deployment和 replica set 中的 pod 数量，（除了 CPU 利用率）也可以 基于其他应程序提供的度量指标custom metrics。 pod 自动缩放不适用于无法缩放的对象，比如 DaemonSe">
@@ -102,7 +102,7 @@
     root: '/',
     scheme: 'Mist',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -394,6 +394,7 @@
 <p><a href="https://kubernetes.io/zh/docs/tasks/run-application/horizontal-pod-autoscale/#pod-%e6%b0%b4%e5%b9%b3%e8%87%aa%e5%8a%a8%e4%bc%b8%e7%bc%a9%e5%b7%a5%e4%bd%9c%e6%9c%ba%e5%88%b6" target="_blank" rel="noopener">官网文档</a> </p>
 </blockquote>
 <p><strong>HPA 工作机制</strong></p>
+<p>关于 HPA 的原理可以看下 baxiaoshi的云原生学习笔记 <a href="https://www.yuque.com/baxiaoshi/tyado3/yw9deb" target="_blank" rel="noopener">https://www.yuque.com/baxiaoshi/tyado3/yw9deb</a>,本文不做过多介绍，只介绍自行配置hpa特性</p>
 <p><code>HPA</code> 是由 <code>hpacontroller</code> 来实现的, 通过  <code>--horizontal-pod-autoscaler-sync-period</code> 参数 指定周期（默认值为15秒）</p>
 <p>一个HPA的例子如下：</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">autoscaling/v2beta2</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">HorizontalPodAutoscaler</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">php-apache</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  scaleTargetRef:</span></span><br><span class="line"><span class="attr">    apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">    kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">php-apache</span></span><br><span class="line"><span class="attr">  minReplicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">  maxReplicas:</span> <span class="number">10</span></span><br><span class="line"><span class="attr">  metrics:</span></span><br><span class="line"><span class="attr">  - type:</span> <span class="string">Resource</span></span><br><span class="line"><span class="attr">    resource:</span></span><br><span class="line"><span class="attr">      name:</span> <span class="string">cpu</span></span><br><span class="line"><span class="attr">      target:</span></span><br><span class="line"><span class="attr">        type:</span> <span class="string">Utilization</span></span><br><span class="line"><span class="attr">        averageUtilization:</span> <span class="number">50</span></span><br><span class="line"><span class="attr">status:</span></span><br><span class="line"><span class="attr">  observedGeneration:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">  lastScaleTime:</span> <span class="string">&lt;some-time&gt;</span></span><br><span class="line"><span class="attr">  currentReplicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">  desiredReplicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">  currentMetrics:</span></span><br><span class="line"><span class="attr">  - type:</span> <span class="string">Resource</span></span><br><span class="line"><span class="attr">    resource:</span></span><br><span class="line"><span class="attr">      name:</span> <span class="string">cpu</span></span><br><span class="line"><span class="attr">      current:</span></span><br><span class="line"><span class="attr">        averageUtilization:</span> <span class="number">0</span></span><br><span class="line"><span class="attr">        averageValue:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
@@ -475,16 +476,9 @@
 </ul>
 <p>假如 <code>CurReplicas = 10</code> , <code>HPA controller</code> 每 <code>1min</code> 处理一次:</p>
 <ul>
-<li><p>前 9 min,算法只会收集扩缩容建议，而不会发生真正的扩缩容，假设 有如下 扩缩容建议：</p>
-<p>  <code>recommendations = [10, 9, 8, 9, 9, 8, 9, 8, 9]</code></p>
-</li>
-<li><p>第 10 min，我们增加一个扩缩容建议，比如说是 <code>8</code></p>
-<p>  <code>recommendations = [10, 9, 8, 9, 9, 8, 9, 8, 9，8]</code></p>
-<p>  HPA 算法会取其中最大的一个 <code>10</code>，因此应用不会发生缩容，<code>repicas</code> 的值不变</p>
-</li>
-<li><p>第 11 min，我们增加一个扩缩容建议，比如 <code>7</code>，维持 <code>600s</code> 的滑动窗口，因此需要把第一个 <code>10</code> 去掉，如下：</p>
-<p>  <code>recommendations = [9, 8, 9, 9, 8, 9, 8, 9, 8, 7]</code><br>  HPA 算法会取最大的一个 <code>9</code>, 应用副本数量变化： <code>10 -&gt; 9</code></p>
-</li>
+<li>前 9 min,算法只会收集扩缩容建议，而不会发生真正的扩缩容，假设 有如下 扩缩容建议：<br>  <code>recommendations = [10, 9, 8, 9, 9, 8, 9, 8, 9]</code></li>
+<li>第 10 min，我们增加一个扩缩容建议，比如说是 <code>8</code><br>  <code>recommendations = [10, 9, 8, 9, 9, 8, 9, 8, 9，8]</code><br>  HPA 算法会取其中最大的一个 <code>10</code>，因此应用不会发生缩容，<code>repicas</code> 的值不变</li>
+<li>第 11 min，我们增加一个扩缩容建议，比如 <code>7</code>，维持 <code>600s</code> 的滑动窗口，因此需要把第一个 <code>10</code> 去掉，如下：<br>  <code>recommendations = [9, 8, 9, 9, 8, 9, 8, 9, 8, 7]</code><br>  HPA 算法会取最大的一个 <code>9</code>, 应用副本数量变化： <code>10 -&gt; 9</code></li>
 </ul>
 <h3 id="场景6：-避免错误的扩容"><a href="#场景6：-避免错误的扩容" class="headerlink" title="场景6： 避免错误的扩容"></a>场景6： 避免错误的扩容</h3><blockquote>
 <p>这种模式在数据处理流中比较常见，用户想要根据队列中的数据来扩容，当数据较多时快速扩容。当指标有抖动时并不想扩容</p>
@@ -582,8 +576,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/02/10/fen-bu-shi-suo/" rel="next" title="分布式锁">
-                <i class="fa fa-chevron-left"></i> 分布式锁
+              <a href="/2019/11/12/neicunguanliyufenpei/" rel="next" title="Go 内存管理">
+                <i class="fa fa-chevron-left"></i> Go 内存管理
               </a>
             
           </div>
@@ -695,7 +689,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -706,7 +700,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

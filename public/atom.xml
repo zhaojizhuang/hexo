@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://chumper.cn/"/>
-  <updated>2020-05-19T13:31:23.799Z</updated>
+  <updated>2020-05-19T15:17:40.517Z</updated>
   <id>https://chumper.cn/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://chumper.cn/2020/05/19/confighpa/"/>
     <id>https://chumper.cn/2020/05/19/confighpa/</id>
     <published>2020-05-19T10:16:18.000Z</published>
-    <updated>2020-05-19T13:31:23.799Z</updated>
+    <updated>2020-05-19T15:17:40.517Z</updated>
     
     <summary type="html">
     
@@ -40,35 +40,6 @@
     
     
       <category term="k8s" scheme="https://chumper.cn/tags/k8s/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>分布式锁</title>
-    <link href="https://chumper.cn/2020/02/10/fen-bu-shi-suo/"/>
-    <id>https://chumper.cn/2020/02/10/fen-bu-shi-suo/</id>
-    <published>2020-02-10T03:40:18.000Z</published>
-    <updated>2020-05-06T15:55:07.047Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;分布式锁&quot;&gt;&lt;a href=&quot;#分布式锁&quot; class=&quot;headerlink&quot; title=&quot;分布式锁&quot;&gt;&lt;/a&gt;分布式锁&lt;/h1&gt;&lt;h2 id=&quot;k8s-的选主机制&quot;&gt;&lt;a href=&quot;#k8s-的选主机制&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="分布式" scheme="https://chumper.cn/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
-    
-    
-      <category term="分布式" scheme="https://chumper.cn/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
-    
-      <category term="go" scheme="https://chumper.cn/tags/go/"/>
     
   </entry>
   
@@ -160,7 +131,7 @@
     <link href="https://chumper.cn/2019/01/05/go%20shen%20ru%20fen%20xi/"/>
     <id>https://chumper.cn/2019/01/05/go%20shen%20ru%20fen%20xi/</id>
     <published>2019-01-05T06:19:10.000Z</published>
-    <updated>2020-05-19T13:27:57.711Z</updated>
+    <updated>2020-05-20T12:54:48.547Z</updated>
     
     <summary type="html">
     
@@ -271,6 +242,36 @@
       <category term="k8s" scheme="https://chumper.cn/tags/k8s/"/>
     
       <category term="容器网络" scheme="https://chumper.cn/tags/%E5%AE%B9%E5%99%A8%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>服务亲和性路由在华为云 k8s 中的实践【Kubernetes中的服务拓扑】</title>
+    <link href="https://chumper.cn/2018/07/07/servicetopo/"/>
+    <id>https://chumper.cn/2018/07/07/servicetopo/</id>
+    <published>2018-07-07T15:40:18.000Z</published>
+    <updated>2020-05-20T12:24:18.233Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;blockquote&gt;
+&lt;p&gt;本文根据华为工程师DJ在LC3上的演讲整理：&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;1-拓扑概念&quot;&gt;&lt;a href=&quot;#1-拓扑概念&quot; class=&quot;headerlink&quot; title=&quot;1. 拓扑概念&quot;&gt;&lt;/a&gt;1.
+        
+      
+    
+    </summary>
+    
+    
+      <category term="k8s" scheme="https://chumper.cn/categories/k8s/"/>
+    
+    
+      <category term="k8s" scheme="https://chumper.cn/tags/k8s/"/>
     
   </entry>
   

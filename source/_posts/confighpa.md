@@ -18,6 +18,8 @@ Pod 水平自动伸缩特性由 Kubernetes API 资源和控制器实现。资源
 
 **HPA 工作机制**
 
+关于 HPA 的原理可以看下 baxiaoshi的云原生学习笔记 [https://www.yuque.com/baxiaoshi/tyado3/yw9deb](https://www.yuque.com/baxiaoshi/tyado3/yw9deb),本文不做过多介绍，只介绍自行配置hpa特性
+
 `HPA` 是由 `hpacontroller` 来实现的, 通过  `--horizontal-pod-autoscaler-sync-period` 参数 指定周期（默认值为15秒）
 
 
@@ -223,15 +225,11 @@ behavior:
 假如 `CurReplicas = 10` , `HPA controller` 每 `1min` 处理一次:
 
 - 前 9 min,算法只会收集扩缩容建议，而不会发生真正的扩缩容，假设 有如下 扩缩容建议：
-
     `recommendations = [10, 9, 8, 9, 9, 8, 9, 8, 9]`
 - 第 10 min，我们增加一个扩缩容建议，比如说是 `8`
-
     `recommendations = [10, 9, 8, 9, 9, 8, 9, 8, 9，8]`
-    
     HPA 算法会取其中最大的一个 `10`，因此应用不会发生缩容，`repicas` 的值不变
 - 第 11 min，我们增加一个扩缩容建议，比如 `7`，维持 `600s` 的滑动窗口，因此需要把第一个 `10` 去掉，如下：
-
     `recommendations = [9, 8, 9, 9, 8, 9, 8, 9, 8, 7]`
     HPA 算法会取最大的一个 `9`, 应用副本数量变化： `10 -> 9`
     

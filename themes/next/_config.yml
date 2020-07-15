@@ -103,7 +103,7 @@ menu:
   archives: /archives/ || archive
   tags: /tags/ || tags
   categories: /categories/ || th
-  #ebook: /source-code-reading-notes/ || book
+  ebook: /ebook/_book/ || book
   about: /about/ || user
   #rss: /atom.xml || rss
   #schedule: /schedule/ || calendar
@@ -191,8 +191,8 @@ sidebar:
   #  - always  expand for all pages automatically
   #  - hide    expand only when click on the sidebar toggle icon.
   #  - remove  Totally remove sidebar including sidebar toggle.
-  display: post
-  #display: always
+  #display: post
+  display: always
   #display: hide
   #display: remove
 
