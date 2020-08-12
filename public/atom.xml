@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://chumper.cn/"/>
-  <updated>2020-05-19T15:17:40.517Z</updated>
+  <updated>2020-07-28T09:43:32.015Z</updated>
   <id>https://chumper.cn/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://chumper.cn/2020/05/19/confighpa/"/>
     <id>https://chumper.cn/2020/05/19/confighpa/</id>
     <published>2020-05-19T10:16:18.000Z</published>
-    <updated>2020-05-19T15:17:40.517Z</updated>
+    <updated>2020-07-28T09:43:32.015Z</updated>
     
     <summary type="html">
     
@@ -48,7 +48,7 @@
     <link href="https://chumper.cn/2019/11/12/neicunguanliyufenpei/"/>
     <id>https://chumper.cn/2019/11/12/neicunguanliyufenpei/</id>
     <published>2019-11-12T10:16:18.000Z</published>
-    <updated>2020-05-15T15:05:47.221Z</updated>
+    <updated>2020-07-28T09:43:32.017Z</updated>
     
     <summary type="html">
     
@@ -77,7 +77,7 @@
     <link href="https://chumper.cn/2019/05/10/epoll/"/>
     <id>https://chumper.cn/2019/05/10/epoll/</id>
     <published>2019-05-10T03:40:18.000Z</published>
-    <updated>2020-05-15T15:16:08.756Z</updated>
+    <updated>2020-07-28T09:43:32.016Z</updated>
     
     <summary type="html">
     
@@ -93,9 +93,9 @@
     
     
     
-      <category term="linux" scheme="https://chumper.cn/tags/linux/"/>
-    
       <category term="epoll" scheme="https://chumper.cn/tags/epoll/"/>
+    
+      <category term="linux" scheme="https://chumper.cn/tags/linux/"/>
     
   </entry>
   
@@ -104,7 +104,7 @@
     <link href="https://chumper.cn/2019/04/02/gomap/"/>
     <id>https://chumper.cn/2019/04/02/gomap/</id>
     <published>2019-04-02T06:19:10.000Z</published>
-    <updated>2020-05-15T15:11:35.511Z</updated>
+    <updated>2020-07-28T09:43:32.016Z</updated>
     
     <summary type="html">
     
@@ -131,7 +131,7 @@
     <link href="https://chumper.cn/2019/01/05/go%20shen%20ru%20fen%20xi/"/>
     <id>https://chumper.cn/2019/01/05/go%20shen%20ru%20fen%20xi/</id>
     <published>2019-01-05T06:19:10.000Z</published>
-    <updated>2020-05-20T12:54:48.547Z</updated>
+    <updated>2020-07-28T09:43:32.016Z</updated>
     
     <summary type="html">
     
@@ -149,11 +149,11 @@
       <category term="Go" scheme="https://chumper.cn/categories/Go/"/>
     
     
-      <category term="linux" scheme="https://chumper.cn/tags/linux/"/>
+      <category term="Go" scheme="https://chumper.cn/tags/Go/"/>
     
       <category term="epoll" scheme="https://chumper.cn/tags/epoll/"/>
     
-      <category term="Go" scheme="https://chumper.cn/tags/Go/"/>
+      <category term="linux" scheme="https://chumper.cn/tags/linux/"/>
     
   </entry>
   
@@ -162,7 +162,7 @@
     <link href="https://chumper.cn/2018/12/05/k8s-iptables/"/>
     <id>https://chumper.cn/2018/12/05/k8s-iptables/</id>
     <published>2018-12-05T05:19:10.000Z</published>
-    <updated>2020-05-19T13:24:32.496Z</updated>
+    <updated>2020-07-28T09:43:32.016Z</updated>
     
     <summary type="html">
     
@@ -192,7 +192,7 @@
     <link href="https://chumper.cn/2018/11/28/k8s-svc/"/>
     <id>https://chumper.cn/2018/11/28/k8s-svc/</id>
     <published>2018-11-28T05:19:10.000Z</published>
-    <updated>2020-05-19T13:23:56.312Z</updated>
+    <updated>2020-07-28T09:43:32.017Z</updated>
     
     <summary type="html">
     
@@ -221,7 +221,7 @@
     <link href="https://chumper.cn/2018/10/25/container-network/"/>
     <id>https://chumper.cn/2018/10/25/container-network/</id>
     <published>2018-10-25T09:29:18.000Z</published>
-    <updated>2020-05-15T15:39:57.315Z</updated>
+    <updated>2020-07-28T09:43:32.015Z</updated>
     
     <summary type="html">
     
@@ -250,7 +250,7 @@
     <link href="https://chumper.cn/2018/07/07/servicetopo/"/>
     <id>https://chumper.cn/2018/07/07/servicetopo/</id>
     <published>2018-07-07T15:40:18.000Z</published>
-    <updated>2020-05-20T12:24:18.233Z</updated>
+    <updated>2020-07-28T09:43:32.018Z</updated>
     
     <summary type="html">
     
@@ -280,7 +280,7 @@
     <link href="https://chumper.cn/2017/06/12/cisco-platform/"/>
     <id>https://chumper.cn/2017/06/12/cisco-platform/</id>
     <published>2017-06-12T10:16:18.000Z</published>
-    <updated>2020-05-19T13:30:06.852Z</updated>
+    <updated>2020-07-28T09:43:32.015Z</updated>
     
     <summary type="html">
     
@@ -308,7 +308,7 @@
     <link href="https://chumper.cn/2017/06/11/Docker/"/>
     <id>https://chumper.cn/2017/06/11/Docker/</id>
     <published>2017-06-11T15:40:18.000Z</published>
-    <updated>2020-05-19T13:30:23.654Z</updated>
+    <updated>2020-07-28T09:43:32.015Z</updated>
     
     <summary type="html">
     
@@ -338,7 +338,7 @@
     <link href="https://chumper.cn/2017/06/10/java-create-thread/"/>
     <id>https://chumper.cn/2017/06/10/java-create-thread/</id>
     <published>2017-06-10T14:40:18.000Z</published>
-    <updated>2020-05-19T13:30:57.269Z</updated>
+    <updated>2020-07-28T09:43:32.016Z</updated>
     
     <summary type="html">
     

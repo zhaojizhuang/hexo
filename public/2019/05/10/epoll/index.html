@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="linux,epoll,">
+  <meta name="keywords" content="epoll,linux,">
 
 
 
@@ -82,7 +82,7 @@
 
 
 <meta name="description" content="epollIO 多路复用目前支持I/O多路复用的系统调用有 select，pselect，poll，epoll ，I/O多路复用就是通过一种机制，一个进程可以监视多个描述符，一旦某个描述符就绪（一般是读就绪或者写就绪），能够通知程序进行相应的读写操作 select调用后select函数会阻塞，直到有描述符就绪（有数据可读、可写），或者超时，函数返回。当select函数返回后，可以通过遍历fdset">
-<meta name="keywords" content="linux,epoll">
+<meta name="keywords" content="epoll,linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content=" 谈谈 epoll ">
 <meta property="og:url" content="https://chumper.cn/2019/05/10/epoll/index.html">
@@ -92,7 +92,7 @@
 <meta property="og:image" content="https://pic4.zhimg.com/80/v2-0cccb4976f8f2c2f8107f2b3a5bc46b3_720w.jpg">
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-90632d0dc3ded7f91379b848ab53974c_720w.jpg">
 <meta property="og:image" content="https://pic4.zhimg.com/80/v2-40bd5825e27cf49b7fd9a59dfcbe4d6f_720w.jpg">
-<meta property="og:updated_time" content="2020-05-15T15:16:08.756Z">
+<meta property="og:updated_time" content="2020-07-28T09:43:32.016Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content=" 谈谈 epoll ">
 <meta name="twitter:description" content="epollIO 多路复用目前支持I/O多路复用的系统调用有 select，pselect，poll，epoll ，I/O多路复用就是通过一种机制，一个进程可以监视多个描述符，一旦某个描述符就绪（一般是读就绪或者写就绪），能够通知程序进行相应的读写操作 select调用后select函数会阻塞，直到有描述符就绪（有数据可读、可写），或者超时，函数返回。当select函数返回后，可以通过遍历fdset">
@@ -225,6 +225,16 @@
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-ebook">
+          <a href="/ebook/_book/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br>
+            
+            电子书
           </a>
         </li>
       
@@ -434,9 +444,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/linux/" rel="tag"># linux</a>
-          
             <a href="/tags/epoll/" rel="tag"># epoll</a>
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
           
         </div>
       

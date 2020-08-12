@@ -1,1 +1,7 @@
 package-lock.json
+
+node_modules/
+
+db.json
+
+.deploy_git
