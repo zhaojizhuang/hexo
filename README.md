@@ -19,8 +19,7 @@ gitbook serve
 ## 2. 发布hexo
 
 ```shell
-hexo s
-hexo g
-
-hexo d 
+hexo s  #本地调试
+hexo g  #生成静态文件
+hexo d  #部署hexo blog到github
 ```
