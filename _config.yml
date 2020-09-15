@@ -17,7 +17,7 @@ url: https://chumper.cn/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
-
+skip_render: gbook/**
 # Directory
 source_dir: source
 public_dir: public
@@ -26,7 +26,6 @@ archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
-skip_render:
 
 # Writing
 new_post_name: :title.md # File name of new posts

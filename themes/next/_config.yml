@@ -103,7 +103,7 @@ menu:
   archives: /archives/ || archive
   tags: /tags/ || tags
   categories: /categories/ || th
-  ebook: /ebook/_book/ || book
+  ebook: /gbook/ || book
   about: /about/ || user
   #rss: /atom.xml || rss
   #schedule: /schedule/ || calendar
