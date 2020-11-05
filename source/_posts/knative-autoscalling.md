@@ -94,10 +94,10 @@ kubectl get kpa -n xxx
 
  **稳定状态下的工作流程如下：**
 
- * 1. 请求通过 `ingress` 路由到 `public service` ，此时 `public service` 对应的 endpoints 是 revision 对应的 pod 
- * 2. `Autoscaler` 会定期通过 `queue-proxy` 获取 `revision` 活跃实例的指标，并不断调整 revision 实例。
+ 1. 请求通过 `ingress` 路由到 `public service` ，此时 `public service` 对应的 endpoints 是 revision 对应的 pod 
+ 2. `Autoscaler` 会定期通过 `queue-proxy` 获取 `revision` 活跃实例的指标，并不断调整 revision 实例。
  请求打到系统时，  `Autoscaler` 会根据当前最新的请求指标确定扩缩容比例。
- * 3.  `SKS` 模式是 `serve`, 它会监控  `private service` 的状态，保持 `public service` 的 endpoints 与 `private service` 一致 。
+ 3.  `SKS` 模式是 `serve`, 它会监控  `private service` 的状态，保持 `public service` 的 endpoints 与 `private service` 一致 。
  
  ### 2. 缩容到零
  
@@ -105,11 +105,11 @@ kubectl get kpa -n xxx
  
  **缩容到零过程的工作流程如下：**
 
-* 1. `AutoScaler` 通过  `queue-proxy` 获取 `revision` 实例的请求指标
-* 2. 一旦系统中某个 `revision` 不再接收到请求（此时 `Activator` 和 `queue-proxy` 收到的请求数都为 0）
-* 3. `AutoScaler` 会通过 `Decider` 确定出当前所需的实例数为 0，通过 `PodAutoscaler` 修改 revision 对应 Deployment 的 实例数
-* 3.  在系统删掉 `revision` 最后一个 Pod 之前，会先将 `Activator` 加到 数据流路径中（请求先到 `Activator`）。`Autoscaler` 触发 `SKS` 变为 `proxy` 模式，此时 `SKS` 的 `public service` 后端的endpoints 变为 `Activator` 的IP，所有的流量都直接导到 `Activator` 
-* 4. 此时，如果在冷却窗口时间内依然没有流量进来，那么最后一个 Pod 才会真正缩容到零。
+1. `AutoScaler` 通过  `queue-proxy` 获取 `revision` 实例的请求指标
+2. 一旦系统中某个 `revision` 不再接收到请求（此时 `Activator` 和 `queue-proxy` 收到的请求数都为 0）
+3. `AutoScaler` 会通过 `Decider` 确定出当前所需的实例数为 0，通过 `PodAutoscaler` 修改 revision 对应 Deployment 的 实例数
+4.  在系统删掉 `revision` 最后一个 Pod 之前，会先将 `Activator` 加到 数据流路径中（请求先到 `Activator`）。`Autoscaler` 触发 `SKS` 变为 `proxy` 模式，此时 `SKS` 的 `public service` 后端的endpoints 变为 `Activator` 的IP，所有的流量都直接导到 `Activator` 
+5. 此时，如果在冷却窗口时间内依然没有流量进来，那么最后一个 Pod 才会真正缩容到零。
  
  ### 3. 冷启动（从零开始扩容）
  
