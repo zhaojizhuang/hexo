@@ -1,0 +1,99 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"serving.knative.dev/v1","kind":"Service","metadata":{"annotations":{"serving.knative.dev/creator":"kubernetes-admin","serving.knative.dev/lastModifier":"kubernetes-admin"},"creationTimestamp":"2020-11-17T10:31:00Z","generation":4,"managedFields":[{"apiVersion":"serving.knative.dev/v1","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:annotations":{".":{},"f:kubectl.kubernetes.io/last-applied-configuration":{},"f:serving.knative.dev/creator":{},"f:serving.knative.dev/lastModifier":{}}},"f:spec":{".":{},"f:template":{".":{},"f:metadata":{".":{},"f:creationTimestamp":{}},"f:spec":{".":{},"f:containerConcurrency":{},"f:containers":{},"f:timeoutSeconds":{}}}},"f:status":{"f:address":{".":{},"f:url":{}},"f:latestReadyRevisionName":{},"f:traffic":{}}},"manager":"kubectl","operation":"Update","time":"2020-11-17T10:40:51Z"},{"apiVersion":"serving.knative.dev/v1","fieldsType":"FieldsV1","fieldsV1":{"f:status":{".":{},"f:conditions":{},"f:latestCreatedRevisionName":{},"f:observedGeneration":{},"f:url":{}}},"manager":"controller","operation":"Update","time":"2020-11-17T10:42:34Z"}],"name":"helloworld-go","namespace":"default","resourceVersion":"69629482","selfLink":"/apis/serving.knative.dev/v1/namespaces/default/services/helloworld-go","uid":"f7471b67-67bb-4d82-855e-b8f218d567cd"},"spec":{"template":{"metadata":{"creationTimestamp":null},"spec":{"containerConcurrency":0,"containers":[{"env":[{"name":"TARGET","value":"Go Sample v1"}],"image":"registry.zjcdn.com/public/zhaojizhuang66/helloworld-go","name":"user-container","readinessProbe":{"successThreshold":1,"tcpSocket":{"port":0}},"resources":{}}],"timeoutSeconds":300}},"traffic":[{"latestRevision":true,"percent":100}]},"status":{"conditions":[{"lastTransitionTime":"2020-11-17T10:42:34Z","message":"Revision \"helloworld-go-csrk8\" failed with message: Unable to fetch image \"registry.zjcdn.com/public/zhaojizhuang66/helloworld-go\": failed to resolve image to digest: GET https://registry.zjcdn.com/v2/public/zhaojizhuang66/helloworld-go/manifests/latest: MANIFEST_UNKNOWN: manifest unknown; map[Tag:latest].","reason":"RevisionFailed","status":"False","type":"ConfigurationsReady"},{"lastTransitionTime":"2020-11-17T10:42:34Z","message":"Configuration \"helloworld-go\" does not have any ready Revision.","reason":"RevisionMissing","status":"False","type":"Ready"},{"lastTransitionTime":"2020-11-17T10:42:34Z","message":"Configuration \"helloworld-go\" does not have any ready Revision.","reason":"RevisionMissing","status":"False","type":"RoutesReady"}],"latestCreatedRevisionName":"helloworld-go-csrk8","observedGeneration":4,"url":"http://helloworld-go.default.faas.oortgslb.com"}}
+    serving.knative.dev/creator: kubernetes-admin
+    serving.knative.dev/lastModifier: kubernetes-admin
+  creationTimestamp: "2020-11-17T10:44:48Z"
+  generation: 1
+  managedFields:
+  - apiVersion: serving.knative.dev/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:kubectl.kubernetes.io/last-applied-configuration: {}
+          f:serving.knative.dev/creator: {}
+          f:serving.knative.dev/lastModifier: {}
+      f:spec:
+        .: {}
+        f:template:
+          .: {}
+          f:metadata:
+            .: {}
+            f:creationTimestamp: {}
+          f:spec:
+            .: {}
+            f:containerConcurrency: {}
+            f:containers: {}
+            f:timeoutSeconds: {}
+    manager: kubectl
+    operation: Update
+    time: "2020-11-17T10:44:48Z"
+  - apiVersion: serving.knative.dev/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:status:
+        .: {}
+        f:address:
+          .: {}
+          f:url: {}
+        f:conditions: {}
+        f:latestCreatedRevisionName: {}
+        f:latestReadyRevisionName: {}
+        f:observedGeneration: {}
+        f:traffic: {}
+        f:url: {}
+    manager: controller
+    operation: Update
+    time: "2020-11-17T10:52:02Z"
+  name: helloworld-go
+  namespace: esr
+  resourceVersion: "69633945"
+  selfLink: /apis/serving.knative.dev/v1/namespaces/default/services/helloworld-go
+  uid: c0978188-8566-4fb0-ba15-8eeac85ff71e
+spec:
+  template:
+    metadata:
+      creationTimestamp: null
+    spec:
+      containerConcurrency: 0
+      containers:
+      - env:
+        - name: TARGET
+          value: Go Sample v1
+        image: registry.zjcdn.com/public/zhaojizhuang66/helloworld-go
+        name: user-container
+        readinessProbe:
+          successThreshold: 1
+          tcpSocket:
+            port: 0
+        resources: {}
+      timeoutSeconds: 300
+  traffic:
+  - latestRevision: true
+    percent: 100
+status:
+  address:
+    url: http://helloworld-go.default.svc.bdcdn-sjzcm
+  conditions:
+  - lastTransitionTime: "2020-11-17T10:52:01Z"
+    status: "True"
+    type: ConfigurationsReady
+  - lastTransitionTime: "2020-11-17T10:52:02Z"
+    status: "True"
+    type: Ready
+  - lastTransitionTime: "2020-11-17T10:52:02Z"
+    status: "True"
+    type: RoutesReady
+  latestCreatedRevisionName: helloworld-go-tpkbd
+  latestReadyRevisionName: helloworld-go-tpkbd
+  observedGeneration: 1
+  traffic:
+  - latestRevision: true
+    percent: 100
+    revisionName: helloworld-go-tpkbd
+  url: http://helloworld-go.default.faas.oortgslb.com

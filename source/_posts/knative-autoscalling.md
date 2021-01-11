@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "【Knative系列】理解 Knative 扩缩容系统的设计"
+title:  "【Knative系列】理解 Knative 扩缩容系统的设计原理"
 date:   2020-09-30 18:16:18 +0800
 categories: knative
 tags:  ["knative","autoscalling"]

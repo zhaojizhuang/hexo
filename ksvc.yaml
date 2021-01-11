@@ -1,0 +1,15 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: autoscale-go
+  namespace: default
+spec:
+  template:
+    metadata:
+      labels:
+        app: autoscale-go
+      annotations:
+        autoscaling.knative.dev/target: "100" # 最大可接受10个请求
+    spec:
+      containers:
+        - image: zhaojizhuang66/helloworld-go
