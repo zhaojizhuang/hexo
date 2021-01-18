@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "【Knative系列】看完这篇还不懂 Knative Serving，你来打我~"
+title:  "【Knative系列】看完这篇还不懂 Knative Serving，你来打我~(史上最详细)"
 date:   2020-10-15 14:10:18 +0800
 categories: knative
 tags:  ["knative","serving"]
@@ -88,47 +88,69 @@ k8s 本质上还是基础设施的抽象，对应pod的管控，服务的发布�
 
 ksvc 是 Knative 中 最顶层的 CR 资源，用于定义 Knative 应用 ，包含镜像以及 traffic 百分比等等（本例配了 两个版本，流量百分比是 10%，90%）, 可以接管 route 和 configuration 的配置
 
-![ksvc](/images/ksvc1.png)
+ ![ksvc](/images/knative_res.png)
+  
+ ![ksvc](/images/k_1.png)
 
 **2. *Configuration***
 
 configuration 是 Knative 应用的最新配置，也就是应用目前期望的状态。configuration 更改会产生快照 revision
 
- ![ksvc](/images/ksvc2.png)
+ ![ksvc](/images/knative_res.png)
+  
+ ![ksvc](/images/k_2.png)
 
 **3. *Revision***
 
 revision 是 Knative 应用的快照，Knative 的设计理念中 revision 是不可更改的，可以看做是 git 的 历史 commit 记录
 
-![ksvc](/images/ksvc3.png)
+ ![ksvc](/images/knative_res.png)
+  
+ ![ksvc](/images/k_3.png)
 
 **4. *Route***
 
 route 是 Knative 蓝绿发布，金丝雀发布的关键，用于声明不同版本之间流量的百分比。
 
-![ksvc](/images/ksvc4.png)
+ ![ksvc](/images/knative_res.png)
+  
+ ![ksvc](/images/k_4.png)
 
 **5. *Ingress(kingress)***
 
 Knative 的流量入口网关 是通过 kingress 抽象的。详情可以看第二节 **Knative 网关**
 
-![ksvc](/images/ksvc5.png)
+ ![ksvc](/images/knative_res.png)
+  
+ ![ksvc](/images/k_5.png)
 
 **6. PodAutoScaler(kpa) **
 
-![ksvc](/images/ksvc6.png)
+ ![ksvc](/images/knative_res.png)
+  
+ ![ksvc](/images/k_6.png)
 
 **7. *ServerlessService(sks)***
 
-![ksvc](/images/ksvc7.png)
+ ![ksvc](/images/knative_res.png)
+  
+ ![ksvc](/images/k_7.png)
 
 **8. *k8s Service  (public)***
 
-![ksvc](/images/ksvc8.png)
+注意，此处的 k8s service 没有 label selector，说明这个 service 的后端 endpoint 不是由 k8s 自动控制的，实际上这个 svc 的后端 endpoint 是 由 knative 自己来控制的，（是取 activator 的pod ip 还是 服务真实实例的pod ip）
+
+ ![ksvc](/images/knative_res.png)
+  
+ ![ksvc](/images/k_8.png)
 
 **9. *k8s Service  (private)***
 
-![ksvc](/images/ksvc9.png)
+private 类型 的 svc 不同于 public 类型的 svc，这个 svc 是通过label selector 来筛选后端 endpoint 的，这里后端指向的永远是 服务真实实例的 pod ip
+
+ ![ksvc](/images/knative_res.png)
+  
+ ![ksvc](/images/k_9.png)
 
 ## 2. Knative 网关
 
