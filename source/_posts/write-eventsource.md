@@ -23,6 +23,7 @@ mathjax: true
 
 ### 6. Example YAML
 
+
 ### 7. Moving the event source to the knative-sandbox organization
 
 
