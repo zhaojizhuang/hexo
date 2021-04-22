@@ -21,7 +21,7 @@ mathjax: true
 * [**net-kourier**](https://github.com/knative-sandbox/net-kourier) **: 对接  Kourier 七层负载的网络插件**
 * [**net-istio**](https://github.com/knative-sandbox/net-istio) **: 对接  Istio 七层负载的网络插件**
 
-![](https://files.mdnice.com/user/13630/42c4c841-5647-4b48-ab14-cdc724465663.png)
+![](/images/knativegate.png)
 
 
 > 上述提到的几个网络插件都是通过 自定义 `Controller` 结合  `Kingress` 这个 `CRD`资源来实现
