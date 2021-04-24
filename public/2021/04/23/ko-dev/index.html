@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="knative,source,event,">
+  <meta name="keywords" content="k8s,云原生,">
 
 
 
@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="准备： 安装 go-licenses https://github.com/google/go-licenses  1. 相关概念的设计解耦2. API 定义3. Controller4. Reconciler5. Receive Adapter6. Example YAML7. Moving the event source to the knative-sandbox organization">
-<meta name="keywords" content="knative,source,event">
+<meta name="description" content="Ko 是 Google 开源的一款用于构建并部署 Go 应用的工具。 这是一款简单、快速的 Go 应用镜像构建器。并与 Kubernetes 集成，能够将应用快速部署到 Kubernetes 上。是云原生时代 Kubernetes 应用开发的一大利器。 特点： 需要构建的 Go 应用对系统镜像无太多依赖（例如，无 cgo，无 OS 软件包依赖关系），最好是只有一个 go 二进制。 构建镜像的过程不">
+<meta name="keywords" content="k8s,云原生">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Knative系列】Knative Source 开发指南">
-<meta property="og:url" content="https://chumper.cn/2021/01/25/write-eventsource/index.html">
+<meta property="og:title" content="如何利用 Google 开源工具 Ko 在 kubernetes 上构建并部署 Go 应用">
+<meta property="og:url" content="https://chumper.cn/2021/04/23/ko-dev/index.html">
 <meta property="og:site_name" content="赵吉壮">
-<meta property="og:description" content="准备： 安装 go-licenses https://github.com/google/go-licenses  1. 相关概念的设计解耦2. API 定义3. Controller4. Reconciler5. Receive Adapter6. Example YAML7. Moving the event source to the knative-sandbox organization">
+<meta property="og:description" content="Ko 是 Google 开源的一款用于构建并部署 Go 应用的工具。 这是一款简单、快速的 Go 应用镜像构建器。并与 Kubernetes 集成，能够将应用快速部署到 Kubernetes 上。是云原生时代 Kubernetes 应用开发的一大利器。 特点： 需要构建的 Go 应用对系统镜像无太多依赖（例如，无 cgo，无 OS 软件包依赖关系），最好是只有一个 go 二进制。 构建镜像的过程不">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-02-26T02:21:55.191Z">
+<meta property="og:updated_time" content="2021-04-23T14:49:17.867Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【Knative系列】Knative Source 开发指南">
-<meta name="twitter:description" content="准备： 安装 go-licenses https://github.com/google/go-licenses  1. 相关概念的设计解耦2. API 定义3. Controller4. Reconciler5. Receive Adapter6. Example YAML7. Moving the event source to the knative-sandbox organization">
+<meta name="twitter:title" content="如何利用 Google 开源工具 Ko 在 kubernetes 上构建并部署 Go 应用">
+<meta name="twitter:description" content="Ko 是 Google 开源的一款用于构建并部署 Go 应用的工具。 这是一款简单、快速的 Go 应用镜像构建器。并与 Kubernetes 集成，能够将应用快速部署到 Kubernetes 上。是云原生时代 Kubernetes 应用开发的一大利器。 特点： 需要构建的 Go 应用对系统镜像无太多依赖（例如，无 cgo，无 OS 软件包依赖关系），最好是只有一个 go 二进制。 构建镜像的过程不">
 
 
 
@@ -123,14 +123,14 @@
 
 
 
-  <link rel="canonical" href="https://chumper.cn/2021/01/25/write-eventsource/">
+  <link rel="canonical" href="https://chumper.cn/2021/04/23/ko-dev/">
 
 
 
 
 
 
-  <title>【Knative系列】Knative Source 开发指南 | 赵吉壮</title>
+  <title>如何利用 Google 开源工具 Ko 在 kubernetes 上构建并部署 Go 应用 | 赵吉壮</title>
   
 
 
@@ -319,7 +319,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chumper.cn/2021/01/25/write-eventsource/">
+    <link itemprop="mainEntityOfPage" href="https://chumper.cn/2021/04/23/ko-dev/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zhaojizhuang">
@@ -336,7 +336,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【Knative系列】Knative Source 开发指南</h1>
+          <h1 class="post-title" itemprop="name headline">如何利用 Google 开源工具 Ko 在 kubernetes 上构建并部署 Go 应用</h1>
         
 
         <div class="post-meta">
@@ -348,8 +348,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-01-25T23:40:18+08:00">
-                2021-01-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-23T14:10:18+08:00">
+                2021-04-23
               </time>
             
 
@@ -371,8 +371,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/k8s/" itemprop="url" rel="index">
-                    <span itemprop="name">k8s</span>
+                  <a href="/categories/云原生/" itemprop="url" rel="index">
+                    <span itemprop="name">云原生</span>
                   </a>
                 </span>
 
@@ -408,15 +408,50 @@
       
 
       
-        <h3 id="准备："><a href="#准备：" class="headerlink" title="准备："></a>准备：</h3><ul>
-<li>安装 <code>go-licenses</code> <a href="https://github.com/google/go-licenses" target="_blank" rel="noopener">https://github.com/google/go-licenses</a></li>
+        <p><code>Ko</code> 是 <code>Google</code> 开源的一款用于构建并部署 <code>Go</code> 应用的工具。</p>
+<p>这是一款简单、快速的 <code>Go</code> 应用镜像构建器。并与 <code>Kubernetes</code> 集成，能够将应用快速部署到 <code>Kubernetes</code> 上。是云原生时代 <code>Kubernetes</code> 应用开发的一大利器。</p>
+<h3 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h3><ul>
+<li>需要构建的 <code>Go</code> 应用对系统镜像无太多依赖（例如，无 <code>cgo</code>，无 <code>OS</code> 软件包依赖关系），最好是只有一个 <code>go</code> 二进制。</li>
+<li>构建镜像的过程不需要 <code>Docker</code>   ，因此可以用在轻量化的 <code>CI/CD</code> 场景。</li>
+<li>支持 <code>yaml</code> 模板，可以直接用于部署 <code>Kubernetes</code> 应用。</li>
 </ul>
-<h3 id="1-相关概念的设计解耦"><a href="#1-相关概念的设计解耦" class="headerlink" title="1. 相关概念的设计解耦"></a>1. 相关概念的设计解耦</h3><h3 id="2-API-定义"><a href="#2-API-定义" class="headerlink" title="2. API 定义"></a>2. API 定义</h3><h3 id="3-Controller"><a href="#3-Controller" class="headerlink" title="3. Controller"></a>3. Controller</h3><h3 id="4-Reconciler"><a href="#4-Reconciler" class="headerlink" title="4. Reconciler"></a>4. Reconciler</h3><h3 id="5-Receive-Adapter"><a href="#5-Receive-Adapter" class="headerlink" title="5. Receive Adapter"></a>5. Receive Adapter</h3><h3 id="6-Example-YAML"><a href="#6-Example-YAML" class="headerlink" title="6. Example YAML"></a>6. Example YAML</h3><h3 id="7-Moving-the-event-source-to-the-knative-sandbox-organization"><a href="#7-Moving-the-event-source-to-the-knative-sandbox-organization" class="headerlink" title="7. Moving the event source to the knative-sandbox organization"></a>7. Moving the event source to the knative-sandbox organization</h3><blockquote>
-<p><em>注意：运行 hack/update-codegen.sh 时在 linux上，mac 上会报错，见 issue <a href="https://github.com/knative/hack/issues/50" target="_blank" rel="noopener">https://github.com/knative/hack/issues/50</a></em></p>
+<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><p>官方地址在这 <a href="https://github.com/google/ko" target="_blank" rel="noopener">https://github.com/google/ko</a></p>
+<h3 id="1-安装-ko"><a href="#1-安装-ko" class="headerlink" title="1. 安装 ko"></a>1. 安装 ko</h3><p>此处安装的是 <code>v0.8.2</code> 版本的 <code>linux x86</code> 版本，可以根据需要自行选择版本下载</p>
+<p><strong>Release 地址:</strong> <a href="https://github.com/google/ko/releases" target="_blank" rel="noopener">https://github.com/google/ko/releases</a></p>
+<p>手动安装</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -L https://github.com/google/ko/releases/download/v0.8.2/ko_0.8.2_Linux_x86_64.tar.gz | tar xzf - ko</span><br><span class="line">chmod +x ./ko</span><br><span class="line">sudo mv ko /usr/local/bin</span><br></pre></td></tr></table></figure>
+<p>brew 安装</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew install ko</span><br></pre></td></tr></table></figure>
+<p>go install 安装</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">go install github.com/google/ko</span><br></pre></td></tr></table></figure>
+<h3 id="2-镜像仓库的认证"><a href="#2-镜像仓库的认证" class="headerlink" title="2. 镜像仓库的认证"></a>2. 镜像仓库的认证</h3><p>Ko 依赖的是 Docker 的镜像仓库的认证（ Docker config 文件），即 <code>~/.docker/config.json</code>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat ~/.docker/config.json</span><br><span class="line">&#123;</span><br><span class="line">	&quot;auths&quot;: &#123;</span><br><span class="line">		&quot;https://index.docker.io/v1/&quot;: &#123;&#125;,</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;HttpHeaders&quot;: &#123;</span><br><span class="line">		&quot;User-Agent&quot;: &quot;Docker-Client/19.03.13 (darwin)&quot;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;credsStore&quot;: &quot;desktop&quot;,</span><br><span class="line">	&quot;experimental&quot;: &quot;disabled&quot;,</span><br><span class="line">	&quot;stackOrchestrator&quot;: &quot;swarm&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果镜像仓库没有登录过，需要先进行 <code>Docker login</code> 生成 对应的认证配置文件，比如我直接用的是 <code>docker hub</code> ,那么直接 <code>docker login</code> 即可。</p>
+<h3 id="3-设置私有仓库的地址"><a href="#3-设置私有仓库的地址" class="headerlink" title="3. 设置私有仓库的地址"></a>3. 设置私有仓库的地址</h3><p><code>Ko</code> 通过 环境变量 <code>KO_DOCKER_REPO</code>  配置私有仓库的地址, 这决定了 <code>Ko</code> 会将编译好的镜像推到哪个仓库。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> <span class="comment"># 这是我的 dockerhub 账号，</span></span><br><span class="line"> <span class="comment"># 这里也可以设置为 docker.io/zhaojizhuang66,不过 docker 会省略掉</span></span><br><span class="line"><span class="built_in">export</span> KO_DOCKER_REPO = zhaojizhuang66</span><br></pre></td></tr></table></figure>
+<h3 id="4-镜像构建-Ko-publish"><a href="#4-镜像构建-Ko-publish" class="headerlink" title="4. 镜像构建 Ko publish"></a>4. 镜像构建 Ko publish</h3><blockquote>
+<p><strong>首先代码一定要在本地的 <code>Go path</code> 中</strong>，可以下载示例代码  <a href="https://github.com/zhaojizhuang/http-helloworld" target="_blank" rel="noopener">https://github.com/zhaojizhuang/http-helloworld</a></p>
 </blockquote>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
-<li>官网 doc <a href="https://knative.dev/docs/eventing/samples/writing-event-source/" target="_blank" rel="noopener">https://knative.dev/docs/eventing/samples/writing-event-source/</a></li>
-</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir -p <span class="variable">$GOPATH</span>/src/github.com</span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$GOPATH</span>/src/github.com</span><br><span class="line">git <span class="built_in">clone</span>  https://github.com/zhaojizhuang/http-helloworld</span><br></pre></td></tr></table></figure>
+<p><code>Ko publish</code> 构建镜像，执行命令 <code>ko publish github.com/http-helloworld/cmd/helloworld</code> (main函数所在的 <code>GoPath</code> 路径)。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ko publish github.com/http-helloworld/cmd/helloworld</span><br><span class="line"></span><br><span class="line">2021/04/23 17:57:41 Using base gcr.io/distroless/static:nonroot <span class="keyword">for</span> github.com/http-helloworld/cmd/helloworld</span><br><span class="line">2021/04/23 17:57:41 No matching credentials were found <span class="keyword">for</span> <span class="string">"gcr.io/distroless/static"</span>, falling back on anonymous</span><br><span class="line">2021/04/23 17:57:45 Building github.com/http-helloworld/cmd/helloworld <span class="keyword">for</span> linux/amd64</span><br><span class="line">2021/04/23 17:57:46 Publishing zhaojizhuang66/helloworld-cbcbba9849adcc25ce56a08dfd597648:latest</span><br><span class="line">2021/04/23 17:57:52 pushed blob: sha256:a3e2b18c53ecc2aab65b3b70e5c16486e48f76490febeb68d99aa18a48265b08</span><br><span class="line">2021/04/23 17:57:52 pushed blob: sha256:72164b581b02b1eb297b403bcc8fc1bfa245cb52e103a3a525a0835a58ff58e2</span><br><span class="line">2021/04/23 17:57:56 pushed blob: sha256:5dea5ec2316d4a067b946b15c3c4f140b4f2ad607e73e9bc41b673ee5ebb99a3</span><br><span class="line">2021/04/23 17:58:07 pushed blob: sha256:d99fea081f251cc06ce68ce7cb224e2a0f63babd03ee9dd6bb03f6bf76dcb5a5</span><br><span class="line">2021/04/23 17:58:08 zhaojizhuang66/helloworld-cbcbba9849adcc25ce56a08dfd597648:latest: digest: sha256:21d352ec9f9079f8da4c91cfe2461df51a404c079f262390b19fff4cb2ce15a0 size: 750</span><br><span class="line">2021/04/23 17:58:08 Published zhaojizhuang66/helloworld-cbcbba9849adcc25ce56a08dfd597648@sha256:21d352ec9f9079f8da4c91cfe2461df51a404c079f262390b19fff4cb2ce15a0</span><br><span class="line">zhaojizhuang66/helloworld-cbcbba9849adcc25ce56a08dfd597648@sha256:21d352ec9f9079f8da4c91cfe2461df51a404c079f262390b19fff4cb2ce15a0</span><br></pre></td></tr></table></figure>
+<p>也支持相对路径编译，如下</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="variable">$GOPATH</span>/src/github.com/http-helloworld/cmd/helloworld</span><br><span class="line">ko publish ./</span><br></pre></td></tr></table></figure>
+<h3 id="5-Ko-resolve"><a href="#5-Ko-resolve" class="headerlink" title="5. Ko resolve"></a>5. Ko resolve</h3><p> 创建文件<code>deploy.yaml</code> ，yaml 内容如下</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: hello-world</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      foo: bar</span><br><span class="line">  replicas: 1</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        foo: bar</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: hello-world</span><br><span class="line">        <span class="comment"># This is the import path for the Go binary to build and run.</span></span><br><span class="line">        image: ko://github.com/http-helloworld/cmd/helloworld</span><br><span class="line">        ports:</span><br><span class="line">        - containerPort: 8080</span><br></pre></td></tr></table></figure>
+<p>然后执行 <code>ko resolve -f deploy.yaml</code> 结果如下，可以看到 <code>ko://github.com/http-helloworld/cmd/helloworld</code> 被替换成了 <code>zhaojizhuang66/helloworld-cbcbba9849adcc25ce56a08dfd597648@sha256:21d352ec9f9079f8da4c91cfe2461df51a404c079f262390b19fff4cb2ce15a0</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ko resolve -f deploy.yaml</span><br><span class="line"></span><br><span class="line">2021/04/23 22:09:19 Using base gcr.io/distroless/static:nonroot <span class="keyword">for</span> github.com/http-helloworld/cmd/helloworld</span><br><span class="line">2021/04/23 22:09:19 No matching credentials were found <span class="keyword">for</span> <span class="string">"gcr.io/distroless/static"</span>, falling back on anonymous</span><br><span class="line">2021/04/23 22:09:23 Building github.com/http-helloworld/cmd/helloworld <span class="keyword">for</span> linux/amd64</span><br><span class="line">2021/04/23 22:09:24 Publishing zhaojizhuang66/helloworld-cbcbba9849adcc25ce56a08dfd597648:latest</span><br><span class="line">2021/04/23 22:09:31 existing blob: sha256:5dea5ec2316d4a067b946b15c3c4f140b4f2ad607e73e9bc41b673ee5ebb99a3</span><br><span class="line">2021/04/23 22:09:31 existing blob: sha256:d99fea081f251cc06ce68ce7cb224e2a0f63babd03ee9dd6bb03f6bf76dcb5a5</span><br><span class="line">2021/04/23 22:09:32 existing blob: sha256:72164b581b02b1eb297b403bcc8fc1bfa245cb52e103a3a525a0835a58ff58e2</span><br><span class="line">2021/04/23 22:09:32 existing blob: sha256:a3e2b18c53ecc2aab65b3b70e5c16486e48f76490febeb68d99aa18a48265b08</span><br><span class="line">2021/04/23 22:09:32 zhaojizhuang66/helloworld-cbcbba9849adcc25ce56a08dfd597648:latest: digest: sha256:21d352ec9f9079f8da4c91cfe2461df51a404c079f262390b19fff4cb2ce15a0 size: 750</span><br><span class="line">2021/04/23 22:09:32 Published zhaojizhuang66/helloworld-cbcbba9849adcc25ce56a08dfd597648@sha256:21d352ec9f9079f8da4c91cfe2461df51a404c079f262390b19fff4cb2ce15a0</span><br><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: hello-world</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      foo: bar</span><br><span class="line">  replicas: 1</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        foo: bar</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">        - name: hello-world</span><br><span class="line">          <span class="comment"># This is the import path for the Go binary to build and run.</span></span><br><span class="line">          image: zhaojizhuang66/helloworld-cbcbba9849adcc25ce56a08dfd597648@sha256:21d352ec9f9079f8da4c91cfe2461df51a404c079f262390b19fff4cb2ce15a0</span><br><span class="line">          ports:</span><br><span class="line">            - containerPort: 8080</span><br></pre></td></tr></table></figure>
+<h3 id="6-Ko-apply"><a href="#6-Ko-apply" class="headerlink" title="6. Ko apply"></a>6. Ko apply</h3><p><code>ko apply -f xxx.yaml</code> 用法同 <code>kubectl apply -f xxx.yaml</code> ,<strong>不同的是，<code>ko apply -f</code> 相当于先执行 <code>resolve</code> 将 <code>ko://xxx</code> 替换成镜像地址，然后再执行 <code>kubectl apply -f</code>  。</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> <span class="variable">$GOPATH</span>/src/github.com/http-helloworld/config</span><br><span class="line">$ ko apply -f ./</span><br><span class="line"></span><br><span class="line">2021/04/23 22:18:10 Using base gcr.io/distroless/static:nonroot <span class="keyword">for</span> github.com/http-helloworld/cmd/helloworld</span><br><span class="line">2021/04/23 22:18:10 No matching credentials were found <span class="keyword">for</span> <span class="string">"gcr.io/distroless/static"</span>, falling back on anonymous</span><br><span class="line">2021/04/23 22:18:13 Building github.com/http-helloworld/cmd/helloworld <span class="keyword">for</span> linux/amd64</span><br><span class="line">2021/04/23 22:18:15 Publishing zhaojizhuang66/helloworld-cbcbba9849adcc25ce56a08dfd597648:latest</span><br><span class="line">2021/04/23 22:18:24 existing blob: sha256:a3e2b18c53ecc2aab65b3b70e5c16486e48f76490febeb68d99aa18a48265b08</span><br><span class="line">2021/04/23 22:18:24 existing blob: sha256:d99fea081f251cc06ce68ce7cb224e2a0f63babd03ee9dd6bb03f6bf76dcb5a5</span><br><span class="line">2021/04/23 22:18:24 existing blob: sha256:72164b581b02b1eb297b403bcc8fc1bfa245cb52e103a3a525a0835a58ff58e2</span><br><span class="line">2021/04/23 22:18:24 existing blob: sha256:5dea5ec2316d4a067b946b15c3c4f140b4f2ad607e73e9bc41b673ee5ebb99a3</span><br><span class="line">2021/04/23 22:18:25 zhaojizhuang66/helloworld-cbcbba9849adcc25ce56a08dfd597648:latest: digest: sha256:21d352ec9f9079f8da4c91cfe2461df51a404c079f262390b19fff4cb2ce15a0 size: 750</span><br><span class="line">2021/04/23 22:18:25 Published zhaojizhuang66/helloworld-cbcbba9849adcc25ce56a08dfd597648@sha256:21d352ec9f9079f8da4c91cfe2461df51a404c079f262390b19fff4cb2ce15a0</span><br><span class="line">deployment.apps/hello-world configured</span><br></pre></td></tr></table></figure>
+<h3 id="7-替换基础镜像"><a href="#7-替换基础镜像" class="headerlink" title="7. 替换基础镜像"></a>7. 替换基础镜像</h3><p>可以通过 <code>ko</code> 的 <code>config</code> 文件中的 <code>defaultBaseImage</code> 变量来设置基础镜像, 配置文件名为 <code>.ko.yaml</code> ,</p>
+<p>ko 执行时默认会在当前目录下寻找 <code>.ko.yaml</code> 文件，也可以通过 环境变量 <code>KO_CONFIG_PATH</code> 来指定 <code>.ko.yaml</code> 的路径</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ~/.ko.yaml</span></span><br><span class="line">defaultBaseImage: ubuntu</span><br></pre></td></tr></table></figure>
+<p>执行如下 </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">$ <span class="built_in">export</span> KO_CONFIG_PATH=~/</span><br><span class="line">$ ko apply  -f ./config</span><br><span class="line"></span><br><span class="line">2021/04/23 22:28:50 Using base ubuntu <span class="keyword">for</span> github.com/http-helloworld/cmd/helloworld</span><br><span class="line">2021/04/23 22:29:00 Building github.com/http-helloworld/cmd/helloworld <span class="keyword">for</span> linux/amd64</span><br><span class="line">2021/04/23 22:29:01 Publishing zhaojizhuang66/helloworld-cbcbba9849adcc25ce56a08dfd597648:latest</span><br><span class="line">2021/04/23 22:29:14 existing blob: sha256:72164b581b02b1eb297b403bcc8fc1bfa245cb52e103a3a525a0835a58ff58e2</span><br><span class="line">2021/04/23 22:29:14 existing blob: sha256:d99fea081f251cc06ce68ce7cb224e2a0f63babd03ee9dd6bb03f6bf76dcb5a5</span><br><span class="line">2021/04/23 22:29:14 mounted blob: sha256:a70d879fa5984474288d52009479054b8bb2993de2a1859f43b5480600cecb24</span><br><span class="line">2021/04/23 22:29:14 mounted blob: sha256:c4394a92d1f8760cf7d17fee0bcee732c94c5b858dd8d19c7ff02beecf3b4e83</span><br><span class="line">2021/04/23 22:29:14 mounted blob: sha256:10e6159c56c084c858f5de2416454ac0a49ddda47b764e4379c5d5a147c9bf5f</span><br><span class="line">2021/04/23 22:29:16 pushed blob: sha256:91d93e3477d55b71f5760478dcab690846ca5f76d92bbef874970460b3e73e5b</span><br><span class="line">2021/04/23 22:29:17 zhaojizhuang66/helloworld-cbcbba9849adcc25ce56a08dfd597648:latest: digest: sha256:623cb60ff10751f3f6a5f6570aaf5f49aee5fb6afc1ef5cfde4dd48a8b4d57df size: 1072</span><br><span class="line">2021/04/23 22:29:17 Published zhaojizhuang66/helloworld-cbcbba9849adcc25ce56a08dfd597648@sha256:623cb60ff10751f3f6a5f6570aaf5f49aee5fb6afc1ef5cfde4dd48a8b4d57df</span><br><span class="line">deployment.apps/hello-world configured</span><br></pre></td></tr></table></figure>
+<p>还可以 通过<code>.ko.yaml</code> 文件中的 <code>baseImageOverrides</code> 对指定编译二进制替换基础镜像，如本示例中，设置如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ~/.ko.yaml</span></span><br><span class="line">defaultBaseImage: ubuntu</span><br><span class="line">baseImageOverrides: </span><br><span class="line">  github.com/http-helloworld/cmd/helloworld: centos</span><br></pre></td></tr></table></figure>
+<p> 修改 <code>.ko.yaml</code> 后，执行命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ko apply -f config</span><br><span class="line"></span><br><span class="line">2021/04/23 22:38:14 Using base centos <span class="keyword">for</span> github.com/http-helloworld/cmd/helloworld</span><br><span class="line">2021/04/23 22:38:26 Building github.com/http-helloworld/cmd/helloworld <span class="keyword">for</span> linux/amd64</span><br><span class="line">2021/04/23 22:38:27 Publishing zhaojizhuang66/helloworld-cbcbba9849adcc25ce56a08dfd597648:latest</span><br><span class="line">2021/04/23 22:38:29 existing blob: sha256:72164b581b02b1eb297b403bcc8fc1bfa245cb52e103a3a525a0835a58ff58e2</span><br><span class="line">2021/04/23 22:38:29 existing blob: sha256:d99fea081f251cc06ce68ce7cb224e2a0f63babd03ee9dd6bb03f6bf76dcb5a5</span><br><span class="line">2021/04/23 22:38:29 mounted blob: sha256:7a0437f04f83f084b7ed68ad9c4a4947e12fc4e1b006b38129bac89114ec3621</span><br><span class="line">2021/04/23 22:38:32 pushed blob: sha256:e909db5555a2c7310e605e60a47a98661c9a5c54d567f741a8d677f84c8a887f</span><br><span class="line">2021/04/23 22:38:32 zhaojizhuang66/helloworld-cbcbba9849adcc25ce56a08dfd597648:latest: digest: sha256:dc009335be23a9eee0235e425218f18a68c3210b00adac7cfe736d9bf38f4121 size: 752</span><br><span class="line">2021/04/23 22:38:32 Published zhaojizhuang66/helloworld-cbcbba9849adcc25ce56a08dfd597648@sha256:dc009335be23a9eee0235e425218f18a68c3210b00adac7cfe736d9bf38f4121</span><br><span class="line">deployment.apps/hello-world configured</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -436,7 +471,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://chumper.cn/2021/01/25/write-eventsource/" title="【Knative系列】Knative Source 开发指南">https://chumper.cn/2021/01/25/write-eventsource/</a>
+    <a href="https://chumper.cn/2021/04/23/ko-dev/" title="如何利用 Google 开源工具 Ko 在 kubernetes 上构建并部署 Go 应用">https://chumper.cn/2021/04/23/ko-dev/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -463,11 +498,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/knative/" rel="tag"># knative</a>
+            <a href="/tags/k8s/" rel="tag"># k8s</a>
           
-            <a href="/tags/source/" rel="tag"># source</a>
-          
-            <a href="/tags/event/" rel="tag"># event</a>
+            <a href="/tags/云原生/" rel="tag"># 云原生</a>
           
         </div>
       
@@ -480,8 +513,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/10/15/knative-serving/" rel="next" title="【Knative系列】看完这篇还不懂 Knative Serving，你来打我~(史上最详细)">
-                <i class="fa fa-chevron-left"></i> 【Knative系列】看完这篇还不懂 Knative Serving，你来打我~(史上最详细)
+              <a href="/2021/04/21/write-controller/" rel="next" title="【Knative系列】如何基于 Knative 开发自定义控制器">
+                <i class="fa fa-chevron-left"></i> 【Knative系列】如何基于 Knative 开发自定义控制器
               </a>
             
           </div>
@@ -489,10 +522,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/04/21/write-controller/" rel="prev" title="【Knative系列】如何基于 Knative 开发自定义控制器">
-                【Knative系列】如何基于 Knative 开发自定义控制器 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -649,7 +678,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#准备："><span class="nav-number">1.</span> <span class="nav-text">准备：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-相关概念的设计解耦"><span class="nav-number">2.</span> <span class="nav-text">1. 相关概念的设计解耦</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-API-定义"><span class="nav-number">3.</span> <span class="nav-text">2. API 定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Controller"><span class="nav-number">4.</span> <span class="nav-text">3. Controller</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Reconciler"><span class="nav-number">5.</span> <span class="nav-text">4. Reconciler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Receive-Adapter"><span class="nav-number">6.</span> <span class="nav-text">5. Receive Adapter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Example-YAML"><span class="nav-number">7.</span> <span class="nav-text">6. Example YAML</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-Moving-the-event-source-to-the-knative-sandbox-organization"><span class="nav-number">8.</span> <span class="nav-text">7. Moving the event source to the knative-sandbox organization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">9.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#特点："><span class="nav-number">1.</span> <span class="nav-text">特点：</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用"><span class="nav-number"></span> <span class="nav-text">如何使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装-ko"><span class="nav-number">1.</span> <span class="nav-text">1. 安装 ko</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-镜像仓库的认证"><span class="nav-number">2.</span> <span class="nav-text">2. 镜像仓库的认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-设置私有仓库的地址"><span class="nav-number">3.</span> <span class="nav-text">3. 设置私有仓库的地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-镜像构建-Ko-publish"><span class="nav-number">4.</span> <span class="nav-text">4. 镜像构建 Ko publish</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Ko-resolve"><span class="nav-number">5.</span> <span class="nav-text">5. Ko resolve</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Ko-apply"><span class="nav-number">6.</span> <span class="nav-text">6. Ko apply</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-替换基础镜像"><span class="nav-number">7.</span> <span class="nav-text">7. 替换基础镜像</span></a></li></ol></li></div>
             
 
           </div>

@@ -334,11 +334,6 @@
     {### END POST BODY ###}
     {#####################}
 
-    {% if theme.wechat_subscriber.enabled and not is_index %}
-      <div>
-        {% include 'wechat-subscriber.swig' %}
-      </div>
-    {% endif %}
 
     {% if (theme.alipay or theme.wechatpay or theme.bitcoin) and not is_index %}
       <div>
@@ -351,6 +346,12 @@
         {% include 'post-copyright.swig' with { post: post } %}
       </div>
     {% endif %}
+
+    {% if theme.wechat_subscriber.enabled and not is_index %}
+          <div>
+            {% include 'wechat-subscriber.swig' %}
+          </div>
+        {% endif %}
 
     <footer class="post-footer">
       {% if post.tags and post.tags.length and not is_index %}
