@@ -348,7 +348,3 @@ kubectl apply -f config/300-addressableservice.yaml
 为程序添加  环境变量 `SYSTEM_NAMESPACE` ,主要是用于 `controller` 选主，不设置会 panic。
 
 **接下来，直接 `debug sample-controller/cmd/controller/main.go` 中的 `main` 函数即可 !**
-
-请关注 **`Knative`** 微信公众号，了解更多 Knative Serverless相关资讯
-
-![](https://img-blog.csdnimg.cn/20210420233122793.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Bvd2VyODg2,size_16,color_FFFFFF,t_70)
