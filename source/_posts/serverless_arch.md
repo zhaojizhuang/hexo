@@ -2,8 +2,8 @@
 layout: post
 title:  "典型的 Serverless 架构是怎样的"
 date:   2021-06-27 19:16:18 +0800
-categories: Serverless
-tags:  ["Serverless"]
+categories: serverless
+tags:  ["serverless"]
 author: zhaojizhuang
 ---
 
