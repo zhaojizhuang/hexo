@@ -338,3 +338,17 @@ Netfilter 执行完成后，调用回调函数 `ip_rcv_finish()`。
    2. tc 和 iptables 程序能方便地 mangle 数据包，而不会对原来的转发流程产生显著影响。
 
 理解这些东西非常重要，因为**这是 Cilium 乃至广义 datapath 里非常核心的东西**。如 果遇到底层网络问题，或者需要做 Cilium/kernel 调优，必须要理解包的收发/转发 路径。
+
+## 参考文章
+
+[1]. 
+你不好奇 Linux 网络发包过程吗: https://xie.infoq.cn/article/6ba14b756c3019cc737ed48a6
+
+[2]. 
+【[译] 深入理解 Cilium 的 eBPF 收发包路径（datapath）（KubeCon, 2019）】: http://arthurchiao.art/blog/understanding-ebpf-datapath-in-cilium-zh
+
+[3]. 
+GRO: https://zhuanlan.zhihu.com/p/44683790
+
+[4]. 
+Linux 内核: https://elixir.bootlin.com/linux/v5.14-rc7/source/include/uapi/linux/pkt_cls.h#L60
